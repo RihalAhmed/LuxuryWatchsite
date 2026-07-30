@@ -38,18 +38,33 @@
       margin: 0;
     }
 
-    /* Navigation */
-    .main-nav {
+    /* Top Bar & Header Wrapper */
+    .header-wrapper {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 2.5rem 3rem;
+      z-index: 100;
+    }
+    .top-bar {
+      background: var(--accent-gold);
+      color: var(--bg-color);
+      text-align: center;
+      padding: 10px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      text-transform: none;
+      font-weight: 500;
+    }
+
+    /* Navigation */
+    .main-nav {
+      width: 100%;
+      padding: 1.5rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
-      z-index: 100;
       font-family: var(--font-body);
       font-size: 11px;
       letter-spacing: 2px;
@@ -61,8 +76,12 @@
       pointer-events: auto;
     }
     .nav-left {
-      letter-spacing: 5px;
-      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      height: 35px;
+      width: auto;
     }
     .nav-center {
       display: flex;
@@ -110,12 +129,16 @@
     }
     .nav-right {
       cursor: pointer;
-      transition: color 0.3s;
-      letter-spacing: 5px;
+      transition: background 0.3s, color 0.3s;
+      letter-spacing: 3px;
       font-weight: 600;
+      background: var(--accent-gold);
+      color: var(--bg-color);
+      padding: 12px 24px;
+      border-radius: 4px;
     }
     .nav-right:hover {
-      color: var(--accent-gold);
+      background: #e2b75a;
     }
     .hamburger {
       display: none;
@@ -177,6 +200,15 @@
       text-decoration: none;
       font-size: 12px;
     }
+    .btn-mobile-valuation {
+      background: var(--accent-gold);
+      color: var(--bg-color) !important;
+      padding: 15px 20px;
+      text-align: center;
+      border-radius: 4px;
+      margin-top: 2rem;
+      font-weight: 600;
+    }
 
     @media (max-width: 1024px) {
       .nav-center {
@@ -230,7 +262,7 @@
       object-fit: cover;
     }
     .hero-text-overlay {
-      position: fixed;
+      position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
@@ -271,7 +303,7 @@
       text-align: left;
     }
     #hero-intro, #hero-outro {
-      position: fixed;
+      position: absolute;
       z-index: 10;
       width: 100%;
       max-width: 500px;
@@ -723,13 +755,17 @@
 </head>
 <body>
 
-  <nav class="main-nav">
-    <div class="nav-left">PRE-OWNED WATCHES</div>
-    
-    <!-- Desktop Menu -->
-    <div class="nav-center">
-      <div class="nav-item has-dropdown">
-        Watches
+  <div class="header-wrapper">
+    <div class="top-bar">Sell your watch and receive same day payment!</div>
+    <nav class="main-nav">
+      <div class="nav-left">
+        <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo">
+      </div>
+      
+      <!-- Desktop Menu -->
+      <div class="nav-center">
+        <div class="nav-item has-dropdown">
+          Watches <span style="font-size: 8px; margin-left: 5px;">▼</span>
         <div class="dropdown">
           <a href="#">Rolex</a>
           <a href="#">Patek Philippe</a>
@@ -746,17 +782,18 @@
     <div class="nav-right">GET A VALUATION</div>
     
     <!-- Mobile Hamburger -->
-    <div class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </nav>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
 
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu">
     <div class="mobile-nav-item has-dropdown">
-      Watches
+      Watches <span style="font-size: 8px; margin-left: 5px;">▼</span>
       <div class="mobile-dropdown">
         <a href="#">Rolex</a>
         <a href="#">Patek Philippe</a>
@@ -768,7 +805,7 @@
     <a href="#" class="mobile-nav-item">Shipping & Returns</a>
     <a href="#" class="mobile-nav-item">About Us</a>
     <a href="#" class="mobile-nav-item">Contact Us</a>
-    <a href="#" class="mobile-nav-item" style="color: var(--accent-gold); margin-top: 2rem;">GET A VALUATION</a>
+    <a href="#" class="mobile-nav-item btn-mobile-valuation">GET A VALUATION</a>
   </div>
   
   <div class="progress-bar"></div>
@@ -777,9 +814,8 @@
   <section id="hero" class="hero">
     <div class="canvas-container">
       <canvas id="hero-canvas"></canvas>
-    </div>
-    <div id="hero-intro">
-      <h1>Dubai Watches</h1>
+      <div id="hero-intro">
+        <h1>Dubai Watches</h1>
       <p>Trusted valuation, expert inspection, same-day payment — selling your luxury watch has never been simpler or more secure.</p>
       <a href="#" class="btn-discover">
         Discover Watches
@@ -803,6 +839,7 @@
         </div>
       </a>
     </div>
+    </div> <!-- End canvas-container -->
   </section>
 
   <!-- Sticky Explainer -->
@@ -942,6 +979,7 @@
 
   <!-- Footer -->
   <footer class="footer">
+    <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo" style="margin-bottom: 2rem;">
     <p>&copy; 2026 PRE-OWNED WATCHES UAE. All rights reserved.</p>
   </footer>
 
