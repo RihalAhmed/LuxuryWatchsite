@@ -89,6 +89,14 @@
       overflow: hidden;
       background: var(--bg-color);
     }
+    .canvas-container::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 250px 150px var(--bg-color);
+      z-index: 5;
+    }
     #hero-canvas {
       width: 100%;
       height: 100%;
@@ -696,17 +704,16 @@
         const imgRatio = img.width / img.height;
         let w, h, x, y;
         
+        const zoomFactor = 0.8; // Zoom out by 20%
         if (canvasRatio > imgRatio) {
-          w = canvas.width;
-          h = canvas.width / imgRatio;
-          x = 0;
-          y = (canvas.height - h) / 2;
+          w = canvas.width * zoomFactor;
+          h = (canvas.width / imgRatio) * zoomFactor;
         } else {
-          w = canvas.height * imgRatio;
-          h = canvas.height;
-          x = (canvas.width - w) / 2;
-          y = 0;
+          w = (canvas.height * imgRatio) * zoomFactor;
+          h = canvas.height * zoomFactor;
         }
+        x = (canvas.width - w) / 2;
+        y = (canvas.height - h) / 2;
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, x, y, w, h);
