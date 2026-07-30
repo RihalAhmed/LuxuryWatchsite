@@ -594,6 +594,65 @@
       }
     }
 
+    /* Categories Section */
+    .categories-section {
+      position: relative;
+      width: 100%;
+      padding: 8rem 5%;
+      text-align: center;
+      background-image: url('images/category-watch-bg.png');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .categories-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 15%, transparent 85%, var(--bg-color) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .categories-grid {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #000;
+      transition: transform 0.4s ease;
+    }
+    .category-card:hover {
+      transform: translateY(-10px);
+    }
+    .category-card img {
+      height: 120px;
+      width: auto;
+      margin-bottom: 1.5rem;
+      mix-blend-mode: multiply;
+      transition: transform 0.4s ease;
+    }
+    .category-card:hover img {
+      transform: scale(1.05);
+    }
+    .category-card span {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .categories-grid { gap: 2rem; }
+      .category-card img { height: 90px; }
+      .categories-section { padding: 6rem 5%; }
+    }
+
     /* Horizontal Rail */
     .horizontal-rail-container {
       height: 100vh;
@@ -1051,6 +1110,33 @@
       </ul>
 
       <a href="#" class="btn-gold">Learn more about the company</a>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="categories-overlay"></div>
+    <div class="categories-grid">
+      <a href="#" class="category-card">
+        <img src="images/Cat Watches/cartier-min11.jpg" alt="Rolex">
+        <span>Sell a Rolex</span>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Cat Watches/ap-min.jpg" alt="Audemars Piguet">
+        <span>Sell a Audemars Piguet</span>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Cat Watches/richard-mille-min.jpg" alt="Richard Mille">
+        <span>Sell a Richard Mille</span>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Cat Watches/cartier-min.jpg" alt="Cartier">
+        <span>Sell a Cartier</span>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Cat Watches/patek-min.jpg" alt="Patek Philippe">
+        <span>Sell a Patek Philippe</span>
+      </a>
     </div>
   </section>
 
