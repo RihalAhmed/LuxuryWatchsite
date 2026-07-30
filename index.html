@@ -123,9 +123,14 @@
       letter-spacing: 2px;
       color: var(--text-color);
       text-transform: uppercase;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    .main-nav.nav-scrolled {
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
-      background: rgba(10, 14, 20, 0.75);
+      background: rgba(10, 14, 20, 0.85);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     .nav-left, .nav-right, .nav-item, .hamburger {
@@ -499,49 +504,100 @@
       }
     }
 
-    /* Sticky Explainer Section */
-    .explainer {
+    /* About Section */
+    .about-section {
       display: flex;
-      position: relative;
       background: var(--bg-color);
+      padding: 8rem 5%;
+      gap: 5%;
+      align-items: center;
     }
-    .explainer-left {
-      width: 50%;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      background: var(--bg-color);
+    .about-left {
+      flex: 1;
+      border-radius: 4px;
       overflow: hidden;
     }
-    .explainer-left img {
+    .about-left img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.4s ease-in-out;
+      display: block;
+      transition: transform 0.6s ease;
     }
-    .explainer-right {
-      width: 50%;
+    .about-left:hover img {
+      transform: scale(1.05);
     }
-    .panel {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10% 15%;
-      box-sizing: border-box;
+    .about-right {
+      flex: 1.2;
     }
-    .panel h2 {
+    .about-right h2 {
       font-family: var(--font-display);
-      font-size: 44px;
-      margin-bottom: 1.5rem;
+      font-size: 36px;
+      color: var(--text-color);
+      margin-bottom: 2rem;
       font-weight: 400;
+      line-height: 1.2;
     }
-    .panel p {
+    .about-desc {
       font-family: var(--font-body);
-      font-size: 18px;
+      font-size: 15px;
       line-height: 1.8;
-      opacity: 0.85;
-      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+    .about-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.5rem 0;
+      color: rgba(255,255,255,0.8);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 2.2;
+    }
+    .about-list li {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .about-list li::before {
+      content: "•";
+      color: var(--accent-gold);
+      position: absolute;
+      left: 0;
+      font-size: 1.2em;
+    }
+    .about-desc strong, .about-list strong {
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+    .btn-gold {
+      display: inline-block;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      letter-spacing: 3px;
+      font-weight: 600;
+      background: var(--accent-gold);
+      color: var(--bg-color);
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .btn-gold:hover {
+      background: #e2b75a;
+      color: var(--bg-color);
+    }
+    @media (max-width: 1024px) {
+      .about-section {
+        flex-direction: column;
+      }
+      .about-left, .about-right {
+        flex: auto;
+        width: 100%;
+      }
+      .about-left {
+        margin-bottom: 3rem;
+      }
     }
 
     /* Horizontal Rail */
@@ -982,28 +1038,25 @@
     </div>
   </section>
 
-  <!-- Sticky Explainer -->
-  <section class="explainer">
-    <div class="explainer-left">
-      <img id="sticky-image" src="images/watch-01-front-hero.jpeg" alt="Watch Presentation">
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-left">
+      <img src="images/hand-watch-about-image.jpg" alt="Premium Watch on Wrist">
     </div>
-    <div class="explainer-right">
-      <div class="panel panel-1">
-        <h2>THE MOVEMENT</h2>
-        <p>Every component, engineered for precision. We leave nothing to chance.</p>
-      </div>
-      <div class="panel panel-2">
-        <h2>THE INSPECTION</h2>
-        <p>Disassembled, examined, and verified by hand. True craftsmanship demands scrutiny.</p>
-      </div>
-      <div class="panel panel-3">
-        <h2>THE VALUATION</h2>
-        <p>Reassembled, restored to its true worth. A fair price for unmatched quality.</p>
-      </div>
-      <div class="panel panel-4">
-        <h2>THE TRANSACTION</h2>
-        <p>From wrist to same-day payment, seamlessly. Discreet and professional.</p>
-      </div>
+    <div class="about-right">
+      <h2>Take comfort in selling to a family-run watch exchange</h2>
+      <p class="about-desc">Backed by business owners with strong connections in Europe, you’ll feel confident when dealing with our platform. We specialise in purchasing watches costing between <strong>2,000AED</strong> and <strong>4,000,000AED</strong>. Our experts carefully check each watch to ensure we offer a <strong>fair price</strong>.</p>
+      
+      <ul class="about-list">
+        <li>Backed by a leading European family-run business</li>
+        <li>Our expertise lies in leading watch brands</li>
+        <li>Every watch is carefully checked before we buy it</li>
+        <li>All payments are <strong>100% safe and secure</strong></li>
+        <li>We’ve bought <strong>over 10,000 watches</strong> (and counting!)</li>
+        <li>We are trusted by <strong>high-profile clientele</strong></li>
+      </ul>
+
+      <a href="#" class="btn-gold">Learn more about the company</a>
     </div>
   </section>
 
@@ -1242,33 +1295,13 @@
       gsap.set(selector, { opacity: opacity });
     }
 
-    // --- Sticky Explainer Logic ---
-    const stickyImage = document.getElementById("sticky-image");
-    const panels = document.querySelectorAll(".panel");
-
-    const panelImages = [
-      "images/watch-01-front-hero.jpeg",
-      "images/watch-03-exploded-disassembled.jpeg",
-      "images/watch-04-reassembled-hero.jpeg",
-      "images/watch-05-on-wrist-businessman.jpeg"
-    ];
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = Array.from(panels).indexOf(entry.target);
-          if (index >= 0) {
-            stickyImage.style.opacity = 0;
-            setTimeout(() => {
-              stickyImage.src = panelImages[index];
-              stickyImage.style.opacity = 1;
-            }, 400); // Wait for opacity transition
-          }
-        }
-      });
-    }, { threshold: 0.5 });
-
-    panels.forEach(panel => observer.observe(panel));
+    // --- Nav Scrolled Logic ---
+    ScrollTrigger.create({
+      trigger: ".trust-badges-section",
+      start: "top top+=80",
+      onEnter: () => document.querySelector(".main-nav").classList.add("nav-scrolled"),
+      onLeaveBack: () => document.querySelector(".main-nav").classList.remove("nav-scrolled")
+    });
 
     // --- Horizontal Rail ---
     gsap.to(".horizontal-rail", {
