@@ -270,19 +270,25 @@
       transform: none;
       text-align: left;
     }
-    #hero-intro {
+    #hero-intro, #hero-outro {
       position: fixed;
-      left: 8%;
-      top: 50%;
-      transform: translateY(-50%);
       z-index: 10;
       width: 100%;
       max-width: 500px;
-      text-align: left;
-      opacity: 1;
       pointer-events: none;
     }
-    #hero-intro h1 {
+    #hero-intro {
+      left: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
+    }
+    #hero-outro {
+      right: 8%;
+      bottom: 10%;
+      opacity: 0;
+    }
+    #hero-intro h1, #hero-outro h1 {
       font-family: 'Syncopate', sans-serif;
       font-size: 48px;
       font-weight: 700;
@@ -292,14 +298,17 @@
       letter-spacing: 2px;
       line-height: 1.1;
     }
-    #hero-intro p {
+    #hero-outro h1 {
+      font-size: 36px;
+    }
+    #hero-intro p, #hero-outro p {
       font-family: var(--font-body);
       font-size: 15px;
       line-height: 1.6;
       color: rgba(255,255,255,0.8);
       margin-bottom: 2.5rem;
     }
-    #hero-intro .btn-discover {
+    #hero-intro .btn-discover, #hero-outro .btn-discover {
       display: inline-flex;
       align-items: center;
       gap: 15px;
@@ -316,11 +325,11 @@
       pointer-events: auto;
       cursor: pointer;
     }
-    #hero-intro .btn-discover:hover {
+    #hero-intro .btn-discover:hover, #hero-outro .btn-discover:hover {
       border-color: var(--accent-gold);
       color: var(--accent-gold);
     }
-    #hero-intro .btn-arrow {
+    #hero-intro .btn-arrow, #hero-outro .btn-arrow {
       width: 35px;
       height: 35px;
       background: #fff;
@@ -329,15 +338,20 @@
       justify-content: center;
       align-items: center;
       color: #000;
-      font-size: 16px;
       transition: background 0.3s;
     }
-    #hero-intro .btn-discover:hover .btn-arrow {
+    #hero-intro .btn-arrow svg, #hero-outro .btn-arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+    #hero-intro .btn-discover:hover .btn-arrow, #hero-outro .btn-discover:hover .btn-arrow {
       background: var(--accent-gold);
     }
     @media (max-width: 768px) {
       #hero-intro h1 { font-size: 32px; }
-      #hero-intro { left: 5%; max-width: 90%; }
+      #hero-outro h1 { font-size: 28px; }
+      #hero-intro, #hero-outro { left: 5%; right: 5%; max-width: 90%; text-align: left; }
+      #hero-outro { bottom: 5%; }
     }
 
     /* Sticky Explainer Section */
@@ -769,12 +783,26 @@
       <p>Trusted valuation, expert inspection, same-day payment — selling your luxury watch has never been simpler or more secure.</p>
       <a href="#" class="btn-discover">
         Discover Watches
-        <div class="btn-arrow">→</div>
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
       </a>
     </div>
-    <div class="hero-text-overlay" id="text-2">Every timepiece, valued with care.</div>
     <div class="hero-text-overlay" id="text-4">Trusted where it matters most.</div>
-    <div class="hero-text-overlay" id="text-5">FAMILY-RUN. DISCREETLY HANDLED.</div>
+    <div id="hero-outro">
+      <h1>Timepiece valued with care</h1>
+      <p>Decades of trust, honest pricing, expert eyes — your timepiece deserves care at every step</p>
+      <a href="#" class="btn-discover">
+        Discover Watches
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+    </div>
   </section>
 
   <!-- Sticky Explainer -->
@@ -1000,9 +1028,25 @@
         }
         gsap.set("#hero-intro", { opacity: introOpacity });
 
-        updateTextOpacity(progress, 0.20, 0.30, "#text-2");
-        updateTextOpacity(progress, 0.60, 0.70, "#text-4");
-        updateTextOpacity(progress, 0.80, 0.90, "#text-5");
+        // Trusted where it matters most - holds longer
+        let text4Opacity = 0;
+        if(progress > 0.40 && progress < 0.50) {
+           text4Opacity = (progress - 0.40) / 0.10; // fade in
+        } else if(progress >= 0.50 && progress <= 0.75) {
+           text4Opacity = 1; // hold
+        } else if(progress > 0.75 && progress < 0.85) {
+           text4Opacity = 1 - ((progress - 0.75) / 0.10); // fade out
+        }
+        gsap.set("#text-4", { opacity: text4Opacity });
+
+        // Outro block
+        let outroOpacity = 0;
+        if(progress > 0.85 && progress < 0.95) {
+           outroOpacity = (progress - 0.85) / 0.10; // fade in
+        } else if(progress >= 0.95) {
+           outroOpacity = 1; // hold till end
+        }
+        gsap.set("#hero-outro", { opacity: outroOpacity });
       }
     });
 
