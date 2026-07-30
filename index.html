@@ -122,8 +122,11 @@
       font-size: 11px;
       letter-spacing: 2px;
       color: var(--text-color);
-      pointer-events: none;
       text-transform: uppercase;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      background: rgba(10, 14, 20, 0.75);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     .nav-left, .nav-right, .nav-item, .hamburger {
       pointer-events: auto;
@@ -451,6 +454,49 @@
       #hero-outro h1 { font-size: 28px; }
       #hero-intro, #hero-outro { left: 5%; right: 5%; max-width: 90%; text-align: left; }
       #hero-outro { bottom: 5%; }
+    }
+
+    /* Trust Badges */
+    .trust-badges-section {
+      padding: 6rem 5%;
+      background: var(--bg-color);
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .trust-badges-section h2 {
+      font-family: var(--font-body);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4rem;
+      font-weight: 400;
+    }
+    .trust-badges-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4rem;
+    }
+    .trust-badges-grid img {
+      height: 45px;
+      width: auto;
+      filter: grayscale(1) invert(1) brightness(0.6);
+      mix-blend-mode: screen;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .trust-badges-grid img:hover {
+      filter: grayscale(1) invert(1) brightness(1);
+    }
+    @media (max-width: 768px) {
+      .trust-badges-grid {
+        gap: 2.5rem;
+      }
+      .trust-badges-grid img {
+        height: 35px;
+      }
     }
 
     /* Sticky Explainer Section */
@@ -924,6 +970,18 @@
     </div> <!-- End canvas-container -->
   </section>
 
+  <!-- Trust Badges -->
+  <section class="trust-badges-section">
+    <h2>We buy & sell the world’s leading luxury watch brands</h2>
+    <div class="trust-badges-grid">
+      <img src="images/Trust Badges/Cartier-logo.svg" alt="Cartier">
+      <img src="images/Trust Badges/F-P-Journe-logo.svg" alt="F.P. Journe">
+      <img src="images/Trust Badges/Omega-logo.svg" alt="Omega">
+      <img src="images/Trust Badges/Panerai-logo.svg" alt="Panerai">
+      <img src="images/Trust Badges/Patek-Philippe-logo.svg" alt="Patek Philippe">
+    </div>
+  </section>
+
   <!-- Sticky Explainer -->
   <section class="explainer">
     <div class="explainer-left">
@@ -1148,14 +1206,14 @@
         }
         gsap.set("#hero-intro", { opacity: introOpacity });
 
-        // Trusted where it matters most - holds shorter
+        // Trusted where it matters most - ends even earlier
         let text4Opacity = 0;
         if(progress > 0.40 && progress < 0.50) {
            text4Opacity = (progress - 0.40) / 0.10; // fade in
-        } else if(progress >= 0.50 && progress <= 0.60) {
+        } else if(progress >= 0.50 && progress <= 0.55) {
            text4Opacity = 1; // hold
-        } else if(progress > 0.60 && progress < 0.70) {
-           text4Opacity = 1 - ((progress - 0.60) / 0.10); // fade out
+        } else if(progress > 0.55 && progress < 0.65) {
+           text4Opacity = 1 - ((progress - 0.55) / 0.10); // fade out
         }
         gsap.set("#text-4", { opacity: text4Opacity });
 
