@@ -49,12 +49,65 @@
     .top-bar {
       background: var(--accent-gold);
       color: var(--bg-color);
-      text-align: center;
-      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 3rem;
       font-family: var(--font-body);
       font-size: 14px;
       text-transform: none;
       font-weight: 500;
+      box-sizing: border-box;
+    }
+    .top-left, .top-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .top-center {
+      flex: 2;
+      text-align: center;
+    }
+    .top-right {
+      justify-content: flex-end;
+      gap: 1.5rem;
+    }
+    .top-right a {
+      color: var(--bg-color);
+      display: flex;
+      align-items: center;
+      transition: opacity 0.3s;
+    }
+    .top-right a:hover {
+      opacity: 0.6;
+    }
+    .top-right svg {
+      width: 16px;
+      height: 16px;
+    }
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--bg-color);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 1px solid rgba(10, 14, 20, 0.4);
+      border-radius: 40px;
+      transition: all 0.3s ease;
+    }
+    .whatsapp-btn:hover {
+      background: var(--bg-color);
+      color: var(--accent-gold);
+      border-color: var(--bg-color);
+    }
+    .whatsapp-btn svg {
+      width: 14px;
+      height: 14px;
     }
 
     /* Navigation */
@@ -135,7 +188,7 @@
       background: var(--accent-gold);
       color: var(--bg-color);
       padding: 12px 24px;
-      border-radius: 4px;
+      border-radius: 50px;
     }
     .nav-right:hover {
       background: #e2b75a;
@@ -205,12 +258,15 @@
       color: var(--bg-color) !important;
       padding: 15px 20px;
       text-align: center;
-      border-radius: 4px;
+      border-radius: 50px;
       margin-top: 2rem;
       font-weight: 600;
     }
 
     @media (max-width: 1024px) {
+      .top-bar {
+        padding: 5px 1.5rem;
+      }
       .nav-center {
         display: none;
       }
@@ -219,6 +275,17 @@
       }
       .hamburger {
         display: flex;
+      }
+    }
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 1rem;
+      }
+      .top-left, .top-right {
+         width: 100%;
+         justify-content: center;
       }
     }
 
@@ -756,7 +823,22 @@
 <body>
 
   <div class="header-wrapper">
-    <div class="top-bar">Sell your watch and receive same day payment!</div>
+    <div class="top-bar">
+      <div class="top-left">
+        <a href="#" class="whatsapp-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="top-center">Sell your watch and receive same day payment!</div>
+      <div class="top-right">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+      </div>
+    </div>
     <nav class="main-nav">
       <div class="nav-left">
         <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo">
@@ -1066,14 +1148,14 @@
         }
         gsap.set("#hero-intro", { opacity: introOpacity });
 
-        // Trusted where it matters most - holds longer
+        // Trusted where it matters most - holds shorter
         let text4Opacity = 0;
         if(progress > 0.40 && progress < 0.50) {
            text4Opacity = (progress - 0.40) / 0.10; // fade in
-        } else if(progress >= 0.50 && progress <= 0.75) {
+        } else if(progress >= 0.50 && progress <= 0.60) {
            text4Opacity = 1; // hold
-        } else if(progress > 0.75 && progress < 0.85) {
-           text4Opacity = 1 - ((progress - 0.75) / 0.10); // fade out
+        } else if(progress > 0.60 && progress < 0.70) {
+           text4Opacity = 1 - ((progress - 0.60) / 0.10); // fade out
         }
         gsap.set("#text-4", { opacity: text4Opacity });
 
