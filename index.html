@@ -1579,7 +1579,7 @@
     // JIT Loader
     function loadFramesNear(index, seqKey) {
       const seq = sequences[seqKey];
-      const radius = 12; // Load 12 frames ahead and 12 behind
+      const radius = 3; // Load 3 frames ahead and 3 behind
       
       for (let i = Math.max(0, index - radius); i <= Math.min(seq.count - 1, index + radius); i++) {
         if (!seq.frames[i]) {
