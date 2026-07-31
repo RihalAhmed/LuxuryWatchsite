@@ -287,13 +287,29 @@
     }
     @media (max-width: 768px) {
       .top-bar {
-        flex-direction: column;
-        gap: 8px;
-        padding: 8px 1rem;
+        flex-direction: row;
+        padding: 4px 1rem;
+        justify-content: space-between;
+      }
+      .main-nav {
+        padding: 1.5rem 1rem 1rem 1rem;
+      }
+      .logo img {
+        height: 30px;
+      }
+      .top-center {
+        display: none;
       }
       .top-left, .top-right {
-         width: 100%;
-         justify-content: center;
+         width: auto;
+         flex: unset;
+         justify-content: flex-end;
+      }
+      .top-left {
+        justify-content: flex-start;
+      }
+      .top-right {
+        gap: 1rem;
       }
     }
 
@@ -488,10 +504,34 @@
       #hero-outro h1 { font-size: 48px; }
     }
     @media (max-width: 768px) {
-      #hero-intro h1 { font-size: 40px; }
-      #hero-outro h1 { font-size: 32px; }
-      #hero-intro, #hero-outro { left: 5%; right: 5%; max-width: 90%; text-align: left; }
-      #hero-outro { bottom: 5%; }
+      #hero-intro h1 { font-size: 40px; line-height: 1; margin-bottom: 0.8rem; }
+      #hero-outro h1 { font-size: 36px; line-height: 1; margin-bottom: 0.8rem; }
+      #hero-intro p, #hero-outro p { margin-bottom: 1.5rem; font-size: 14px; }
+      #hero-intro, #hero-outro, .hero-text-overlay { 
+        left: 0 !important; 
+        right: 0 !important; 
+        max-width: 100% !important; 
+        text-align: left !important; 
+        padding: 0 5% !important; 
+        bottom: auto !important;
+        top: 100% !important;
+        margin-top: 30px !important;
+        box-sizing: border-box !important;
+        background: transparent !important;
+        transform: none !important;
+      }
+      .hero-text-overlay {
+        font-size: 28px !important;
+      }
+      .canvas-container {
+        height: 60vh;
+        width: 100vw;
+        top: 90px;
+        overflow: visible;
+      }
+      .canvas-container::after {
+        background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 15%, transparent 85%, var(--bg-color) 100%);
+      }
     }
 
     /* Trust Badges */
@@ -628,63 +668,7 @@
     }
 
     /* Categories Section */
-    .categories-section {
-      position: relative;
-      width: 100%;
-      padding: 8rem 5%;
-      text-align: center;
-      background-image: url('images/category-watch-bg.png');
-      background-size: cover;
-      background-position: center;
-      overflow: hidden;
-    }
-    .categories-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 15%, transparent 85%, var(--bg-color) 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .categories-grid {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 3.5rem;
-      flex-wrap: wrap;
-    }
-    .category-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #000;
-      transition: transform 0.4s ease;
-    }
-    .category-card:hover {
-      transform: translateY(-10px);
-    }
-    .category-card img {
-      height: 120px;
-      width: auto;
-      margin-bottom: 1.5rem;
-      mix-blend-mode: multiply;
-      transition: transform 0.4s ease;
-    }
-    .category-card:hover img {
-      transform: scale(1.05);
-    }
-    .category-card span {
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 500;
-    }
-    @media (max-width: 768px) {
-      .categories-grid { gap: 2rem; }
-      .category-card img { height: 90px; }
-      .categories-section { padding: 6rem 5%; }
-    }
+
 
     /* Horizontal Rail */
     .horizontal-rail-container {
@@ -1007,23 +991,147 @@
       text-transform: uppercase;
     }
       
-    /* Watch Details Callout */
-    #watch-details-callout {
+    /* Hero Watches Showcase */
+    #hero-watches-showcase {
       position: absolute;
       top: 25%;
-      left: 20%;
-      z-index: 20;
-      pointer-events: auto;
-      opacity: 0; /* Animated by GSAP */
+      right: 8%;
+      z-index: 15;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 20px;
+      background: rgba(10, 14, 20, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+      pointer-events: auto;
+    }
+      
+    .showcase-divider {
+      width: 1px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+      
+    .showcase-watch {
+      display: block;
+      width: 70px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+    }
+      
+    .showcase-watch img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
+      transform-origin: center center;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    }
+      
+    .showcase-watch:hover img {
+      transform: scale(1.15) rotate(-5deg) rotateY(15deg);
+      filter: drop-shadow(0 10px 20px rgba(255,255,255,0.2)) brightness(1.25);
+    }
+    
+    .showcase-watch.active-sequence img {
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6)) brightness(1.1);
+      transform: scale(1.05);
+    }
+      
+    @media (max-width: 1024px) {
+      #hero-watches-showcase {
+        top: 15%;
+        right: 5%;
+      }
+    }
+      
+    @media (max-width: 768px) {
+      #hero-watches-showcase {
+        top: 25px;
+        left: 5%;
+        right: auto;
+        transform: none;
+        padding: 2px 8px;
+        gap: 8px;
+      }
+      .showcase-watch {
+        width: 45px;
+        height: 50px;
+      }
+      .showcase-divider {
+        height: 30px;
+      }
+      #watch-details-callout {
+        transform: scale(0.55) !important;
+      }
+      .callout-box {
+        left: auto;
+        right: 35px;
+        transform: none;
+        bottom: 100px;
+        width: 310px;
+      }
+      .callout-line-svg {
+        display: none;
+      }
+      #watch-details-callout::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 45px;
+        height: 100px;
+        border-top: 2px solid white;
+        border-right: 2px solid white;
+        border-top-right-radius: 8px;
+        filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
+        display: block;
+        z-index: -1;
+      }
+      #watch-details-callout.lady-sequence .callout-box {
+        right: 177px;
+      }
+      #watch-details-callout.lady-sequence::before {
+        width: 187px;
+      }
+      #watch-details-callout::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        right: -4px;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 8px white;
+        display: block;
+      }
+      .btn-check-it-out {
+        padding: 16px 28px !important;
+        font-size: 16px !important;
+      }
+      .trust-badges-section {
+        margin-top: 250px;
+      }
+    }
+    #watch-details-callout {
+      position: absolute;
+      z-index: 20;
+      opacity: 0; /* Animated by GSAP */
+      pointer-events: none; /* Let pointer pass through to canvas if needed */
     }
       
     .callout-line-svg {
       position: absolute;
-      top: 20px;
-      left: 100%;
+      bottom: 0;
+      right: 0;
       width: 300px;
       height: 200px;
       pointer-events: none;
@@ -1038,7 +1146,6 @@
       filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
       stroke-dasharray: 500;
       stroke-dashoffset: 500;
-      animation: shimmerLine 3s infinite linear;
     }
       
     .callout-box {
@@ -1050,10 +1157,13 @@
       padding: 24px;
       border-radius: 12px;
       width: 280px;
-      position: relative;
+      position: absolute;
+      bottom: 160px;
+      right: 260px;
       z-index: 2;
       transform: translateY(20px);
       opacity: 0;
+      pointer-events: auto;
     }
       
     .callout-box-brand {
@@ -1118,19 +1228,13 @@
     }
       
     @media (max-width: 1024px) {
-      #watch-details-callout {
-        top: 15%;
-        left: 10%;
-      }
       .callout-line-svg {
         width: 150px;
         height: 100px;
       }
-    }
-      
-    @media (max-width: 768px) {
-      #watch-details-callout {
-        display: none; /* Hide on mobile to prevent clutter */
+      .callout-box {
+        bottom: 80px;
+        right: 130px;
       }
     }
   </style>
@@ -1156,7 +1260,7 @@
     </div>
     <nav class="main-nav">
       <div class="nav-left">
-        <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo">
+        <a href="/"><img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo"></a>
       </div>
       
       <!-- Desktop Menu -->
@@ -1223,6 +1327,18 @@
         </div>
       </a>
     </div>
+      
+      <!-- Hero Watches Showcase -->
+      <div id="hero-watches-showcase">
+        <a href="#" class="showcase-watch" id="lady-watch-trigger">
+          <img src="images/Cat Watches/watch-elegent-woman.png" alt="Elegant Woman Watch">
+        </a>
+        <div class="showcase-divider"></div>
+        <a href="#" class="showcase-watch">
+          <img src="images/Cat Watches/watch-youth-elegent.png" alt="Youth Elegant Watch">
+        </a>
+      </div>
+      
     <div class="hero-text-overlay" id="text-4">Trusted where it matters most.</div>
     <div id="hero-outro">
       <h1>Timepiece<br>valued with care</h1>
@@ -1247,8 +1363,8 @@
               <stop offset="100%" stop-color="rgba(201,160,77,0)" />
             </linearGradient>
           </defs>
-          <path class="callout-line-path" d="M0,20 L150,50 L280,180" />
-          <circle cx="280" cy="180" r="4" fill="var(--accent-gold)" filter="drop-shadow(0 0 5px var(--accent-gold))" />
+          <path class="callout-line-path" d="M30,40 L150,50 L300,200" />
+          <circle cx="300" cy="200" r="4" fill="var(--accent-gold)" filter="drop-shadow(0 0 5px var(--accent-gold))" />
         </svg>
         
         <div class="callout-box">
@@ -1301,32 +1417,7 @@
     </div>
   </section>
 
-  <!-- Categories Section -->
-  <section class="categories-section">
-    <div class="categories-overlay"></div>
-    <div class="categories-grid">
-      <a href="#" class="category-card">
-        <img src="images/Cat Watches/cartier-min11.jpg" alt="Rolex">
-        <span>Sell a Rolex</span>
-      </a>
-      <a href="#" class="category-card">
-        <img src="images/Cat Watches/ap-min.jpg" alt="Audemars Piguet">
-        <span>Sell a Audemars Piguet</span>
-      </a>
-      <a href="#" class="category-card">
-        <img src="images/Cat Watches/richard-mille-min.jpg" alt="Richard Mille">
-        <span>Sell a Richard Mille</span>
-      </a>
-      <a href="#" class="category-card">
-        <img src="images/Cat Watches/cartier-min.jpg" alt="Cartier">
-        <span>Sell a Cartier</span>
-      </a>
-      <a href="#" class="category-card">
-        <img src="images/Cat Watches/patek-min.jpg" alt="Patek Philippe">
-        <span>Sell a Patek Philippe</span>
-      </a>
-    </div>
-  </section>
+
 
   <!-- Horizontal Rail -->
   <section class="horizontal-rail-container">
@@ -1440,7 +1531,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo" style="margin-bottom: 2rem;">
+    <a href="/"><img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo" style="margin-bottom: 2rem;"></a>
     <p>&copy; 2026 PRE-OWNED WATCHES UAE. All rights reserved.</p>
   </footer>
 
@@ -1451,34 +1542,57 @@
     const canvas = document.getElementById("hero-canvas");
     const ctx = canvas.getContext("2d");
 
-    const frameCount = 960;
-    const frames = new Array(frameCount);
+    const sequences = {
+      default: {
+        dir: "frames_webp",
+        count: 960,
+        frames: new Array(960),
+        loadedFirst: false,
+        targetX: 0.60, // Approximate X center of the default watch
+        targetY: 0.50  // Approximate Y center of the default watch
+      },
+      lady: {
+        dir: "frames_webp_lady",
+        count: 955,
+        frames: new Array(955),
+        loadedFirst: false,
+        targetX: 0.70, // Approximate X center of the lady watch
+        targetY: 0.70  // Approximate Y center of the lady watch
+      }
+    };
+    
+    let activeSequenceKey = 'default';
     const currentFrame = { index: 0 };
     
     // Fallback: Get the closest loaded frame to the requested index
     function getClosestLoadedFrame(targetIndex) {
-      for (let offset = 0; offset < frameCount; offset++) {
-        if (targetIndex + offset < frameCount && frames[targetIndex + offset] && frames[targetIndex + offset].complete) return frames[targetIndex + offset];
-        if (targetIndex - offset >= 0 && frames[targetIndex - offset] && frames[targetIndex - offset].complete) return frames[targetIndex - offset];
+      const seq = sequences[activeSequenceKey];
+      for (let offset = 0; offset < seq.count; offset++) {
+        if (targetIndex + offset < seq.count && seq.frames[targetIndex + offset] && seq.frames[targetIndex + offset].complete) return seq.frames[targetIndex + offset];
+        if (targetIndex - offset >= 0 && seq.frames[targetIndex - offset] && seq.frames[targetIndex - offset].complete) return seq.frames[targetIndex - offset];
       }
       return null;
     }
 
-    // Load first frame immediately for instant visual
-    const firstImg = new Image();
-    firstImg.src = "frames_webp/frame_0001.webp";
-    firstImg.onload = () => {
-      frames[0] = firstImg;
-      renderFrame(0);
-      loadFramesSequentially();
-    };
+    function loadFramesSequentially(seqKey) {
+      const seq = sequences[seqKey];
+      
+      // Load first frame immediately if not loaded
+      if (!seq.loadedFirst) {
+        const firstImg = new Image();
+        firstImg.src = `${seq.dir}/frame_0001.webp`;
+        firstImg.onload = () => {
+          seq.frames[0] = firstImg;
+          if (activeSequenceKey === seqKey) renderFrame(0);
+        };
+        seq.loadedFirst = true;
+      }
 
-    function loadFramesSequentially() {
       // Create load order: Skeleton (every 15th frame) then the rest
       const loadOrder = [];
-      for (let i = 15; i <= frameCount; i += 15) loadOrder.push(i);
+      for (let i = 15; i <= seq.count; i += 15) loadOrder.push(i);
       const skeletonSet = new Set(loadOrder);
-      for (let i = 2; i <= frameCount; i++) {
+      for (let i = 2; i <= seq.count; i++) {
         if (!skeletonSet.has(i)) loadOrder.push(i);
       }
       
@@ -1493,14 +1607,24 @@
         
         for (let j = 0; j < chunkGoal; j++) {
           const frameNum = loadOrder[currentIndex + j];
+          // Skip if already loaded
+          if (seq.frames[frameNum - 1]) {
+             loadedThisChunk++;
+             if (loadedThisChunk === chunkGoal) {
+               currentIndex += chunkGoal;
+               setTimeout(loadNextChunk, 10);
+             }
+             continue;
+          }
+
           const img = new Image();
           const paddedIndex = frameNum.toString().padStart(4, "0");
-          img.src = `frames_webp/frame_${paddedIndex}.webp`;
+          img.src = `${seq.dir}/frame_${paddedIndex}.webp`;
           img.onload = img.onerror = () => {
-            frames[frameNum - 1] = img; // 0-indexed array
+            seq.frames[frameNum - 1] = img; // 0-indexed array
             
-            // Re-render if this newly loaded frame is very close to current scroll position
-            if (Math.abs((frameNum - 1) - currentFrame.index) <= 15) {
+            // Re-render if this newly loaded frame is very close to current scroll position and is active
+            if (activeSequenceKey === seqKey && Math.abs((frameNum - 1) - currentFrame.index) <= 15) {
                renderFrame(currentFrame.index);
             }
 
@@ -1516,6 +1640,9 @@
       setTimeout(loadNextChunk, 100);
     }
 
+    // Start loading default sequence
+    loadFramesSequentially('default');
+
     function renderFrame(index) {
       const img = getClosestLoadedFrame(index);
       if (img) {
@@ -1524,35 +1651,101 @@
         let w, h, x, y;
         
         const zoomFactor = 0.8; // Zoom out by 20%
-        if (canvasRatio > imgRatio) {
-          w = canvas.width * zoomFactor;
-          h = (canvas.width / imgRatio) * zoomFactor;
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+          // Cover fit for mobile
+          if (canvasRatio > imgRatio) {
+            w = canvas.width;
+            h = canvas.width / imgRatio;
+          } else {
+            w = canvas.height * imgRatio;
+            h = canvas.height;
+          }
         } else {
-          w = (canvas.height * imgRatio) * zoomFactor;
-          h = canvas.height * zoomFactor;
+          // Object-fit: Cover for desktop
+          if (canvasRatio > imgRatio) {
+            w = canvas.width * zoomFactor;
+            h = (canvas.width / imgRatio) * zoomFactor;
+          } else {
+            w = (canvas.height * imgRatio) * zoomFactor;
+            h = canvas.height * zoomFactor;
+          }
         }
+        
         x = (canvas.width - w) / 2;
         y = (canvas.height - h) / 2;
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, x, y, w, h);
+        
+        // Dynamically pin the callout pointer exactly to the watch on the image
+        const seqConfig = sequences[activeSequenceKey];
+        const pointerX = x + (w * seqConfig.targetX);
+        const pointerY = y + (h * seqConfig.targetY);
+        
+        const callout = document.getElementById("watch-details-callout");
+        if(callout) {
+          callout.style.left = `${pointerX}px`;
+          callout.style.top = `${pointerY}px`;
+        }
       }
     }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const container = document.querySelector('.canvas-container');
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
       renderFrame(currentFrame.index);
     }
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas(); // Initial call
 
+    // Lady watch trigger logic
+    const ladyWatchTrigger = document.getElementById('lady-watch-trigger');
+    if (ladyWatchTrigger) {
+      ladyWatchTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (activeSequenceKey === 'default') {
+          activeSequenceKey = 'lady';
+          ladyWatchTrigger.classList.add('active-sequence');
+          const callout = document.getElementById('watch-details-callout');
+          if (callout) callout.classList.add('lady-sequence');
+          loadFramesSequentially('lady');
+        } else {
+          activeSequenceKey = 'default';
+          ladyWatchTrigger.classList.remove('active-sequence');
+          const callout = document.getElementById('watch-details-callout');
+          if (callout) callout.classList.remove('lady-sequence');
+        }
+        
+        // Force an immediate re-render at the current progress
+        if (ScrollTrigger.getById("heroScroll")) {
+           const st = ScrollTrigger.getById("heroScroll");
+           const progress = st.progress;
+           const activeCount = sequences[activeSequenceKey].count;
+           
+           let frameProgress = Math.min(progress, 0.85) / 0.85;
+           const frameIndex = Math.min(
+             activeCount - 1,
+             Math.floor(frameProgress * activeCount)
+           );
+           currentFrame.index = frameIndex;
+           renderFrame(frameIndex);
+        } else {
+           ScrollTrigger.refresh();
+        }
+      });
+    }
+
     ScrollTrigger.create({
+      id: "heroScroll",
       trigger: ".hero",
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
         const progress = self.progress;
+        const activeCount = sequences[activeSequenceKey].count;
         
         // Progress bar logic
         gsap.set(".progress-bar", { height: `${progress * 100}vh` });
@@ -1560,8 +1753,8 @@
         // Frame update (finishes at 85% of scroll)
         let frameProgress = Math.min(progress, 0.85) / 0.85;
         const frameIndex = Math.min(
-          frameCount - 1,
-          Math.floor(frameProgress * frameCount)
+          activeCount - 1,
+          Math.floor(frameProgress * activeCount)
         );
         currentFrame.index = frameIndex;
         renderFrame(frameIndex);
@@ -1574,6 +1767,7 @@
            introOpacity = 0;
         }
         gsap.set("#hero-intro", { opacity: introOpacity });
+        gsap.set("#hero-watches-showcase", { opacity: introOpacity });
 
         // Trusted where it matters most
         let text4Opacity = 0;
