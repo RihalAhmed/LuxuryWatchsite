@@ -1595,7 +1595,7 @@
             }
           };
           img.onerror = () => {
-            seq.frames[i] = null; // Retry next time
+            seq.frames[i] = { complete: false, error: true }; // Mark as error to prevent infinite retry loop
           };
         }
       }
