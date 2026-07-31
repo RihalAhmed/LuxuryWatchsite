@@ -1545,16 +1545,16 @@
     const sequences = {
       default: {
         dir: "frames_webp",
-        count: 960,
-        frames: new Array(960),
+        count: 192,
+        frames: new Array(192),
         loadedFirst: false,
         targetX: 0.60, // Approximate X center of the default watch
         targetY: 0.50  // Approximate Y center of the default watch
       },
       lady: {
         dir: "frames_webp_lady",
-        count: 955,
-        frames: new Array(955),
+        count: 191,
+        frames: new Array(191),
         loadedFirst: false,
         targetX: 0.70, // Approximate X center of the lady watch
         targetY: 0.70  // Approximate Y center of the lady watch
@@ -1574,70 +1574,51 @@
       return null;
     }
 
-    function loadFramesSequentially(seqKey) {
+    // JIT Loader
+    function loadFramesNear(index, seqKey) {
       const seq = sequences[seqKey];
+      const radius = 12; // Load 12 frames ahead and 12 behind
       
-      // Load first frame immediately if not loaded
-      if (!seq.loadedFirst) {
-        const firstImg = new Image();
-        firstImg.src = `${seq.dir}/frame_0001.webp`;
-        firstImg.onload = () => {
-          seq.frames[0] = firstImg;
-          if (activeSequenceKey === seqKey) renderFrame(0);
-        };
-        seq.loadedFirst = true;
-      }
-
-      // Create load order: Skeleton (every 15th frame) then the rest
-      const loadOrder = [];
-      for (let i = 15; i <= seq.count; i += 15) loadOrder.push(i);
-      const skeletonSet = new Set(loadOrder);
-      for (let i = 2; i <= seq.count; i++) {
-        if (!skeletonSet.has(i)) loadOrder.push(i);
-      }
-      
-      let currentIndex = 0;
-      const chunkSize = 15; // Concurrent connections limit to avoid network freeze
-      
-      function loadNextChunk() {
-        if (currentIndex >= loadOrder.length) return;
-        
-        let loadedThisChunk = 0;
-        let chunkGoal = Math.min(chunkSize, loadOrder.length - currentIndex);
-        
-        for (let j = 0; j < chunkGoal; j++) {
-          const frameNum = loadOrder[currentIndex + j];
-          // Skip if already loaded
-          if (seq.frames[frameNum - 1]) {
-             loadedThisChunk++;
-             if (loadedThisChunk === chunkGoal) {
-               currentIndex += chunkGoal;
-               setTimeout(loadNextChunk, 10);
-             }
-             continue;
-          }
-
+      for (let i = Math.max(0, index - radius); i <= Math.min(seq.count - 1, index + radius); i++) {
+        if (!seq.frames[i]) {
+          const actualFileIndex = (i * 5) + 1; // Map 0->1, 1->6, 2->11
+          const paddedIndex = actualFileIndex.toString().padStart(4, "0");
           const img = new Image();
-          const paddedIndex = frameNum.toString().padStart(4, "0");
+          seq.frames[i] = { complete: false }; // Placeholder to prevent duplicate network requests
           img.src = `${seq.dir}/frame_${paddedIndex}.webp`;
-          img.onload = img.onerror = () => {
-            seq.frames[frameNum - 1] = img; // 0-indexed array
-            
-            // Re-render if this newly loaded frame is very close to current scroll position and is active
-            if (activeSequenceKey === seqKey && Math.abs((frameNum - 1) - currentFrame.index) <= 15) {
-               renderFrame(currentFrame.index);
+          img.onload = () => {
+            seq.frames[i] = img;
+            if (activeSequenceKey === seqKey && currentFrame.index === i) {
+              renderFrame(i); // Render immediately if we're waiting for this frame
             }
-
-            loadedThisChunk++;
-            if (loadedThisChunk === chunkGoal) {
-              currentIndex += chunkGoal;
-              setTimeout(loadNextChunk, 10); // small delay to let browser breathe
-            }
+          };
+          img.onerror = () => {
+            seq.frames[i] = null; // Retry next time
           };
         }
       }
+    }
+
+    function loadFramesSequentially(seqKey) {
+      const seq = sequences[seqKey];
       
-      setTimeout(loadNextChunk, 100);
+      // Load a sparse skeleton (every 10th sparse frame) to ensure rapid fallback availability
+      for (let i = 0; i < seq.count; i += 10) {
+        if (!seq.frames[i]) {
+           const actualFileIndex = (i * 5) + 1;
+           const paddedIndex = actualFileIndex.toString().padStart(4, "0");
+           const img = new Image();
+           seq.frames[i] = { complete: false };
+           img.src = `${seq.dir}/frame_${paddedIndex}.webp`;
+           img.onload = () => {
+             seq.frames[i] = img;
+             if (i === 0 && activeSequenceKey === seqKey) renderFrame(0);
+           };
+        }
+      }
+      
+      // Start JIT loading around the current position
+      loadFramesNear(currentFrame.index, seqKey);
     }
 
     // Start loading default sequence
@@ -1731,6 +1712,7 @@
              Math.floor(frameProgress * activeCount)
            );
            currentFrame.index = frameIndex;
+           loadFramesNear(frameIndex, activeSequenceKey);
            renderFrame(frameIndex);
         } else {
            ScrollTrigger.refresh();
@@ -1757,6 +1739,7 @@
           Math.floor(frameProgress * activeCount)
         );
         currentFrame.index = frameIndex;
+        loadFramesNear(frameIndex, activeSequenceKey);
         renderFrame(frameIndex);
 
         // Text opacity logic
