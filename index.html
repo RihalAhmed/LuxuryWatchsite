@@ -310,7 +310,7 @@
 
     /* Hero Section */
     .hero {
-      height: 400vh; /* Scroll length */
+      height: 500vh; /* Increased scroll length to hold the final frame */
       position: relative;
     }
     .canvas-container {
@@ -389,12 +389,34 @@
       bottom: 110px;
       opacity: 1;
     }
-    @media (min-width: 1400px) {
+    @media (min-width: 1024px) {
+      #hero-intro, #hero-outro {
+        max-width: 700px;
+        width: 450px;
+      }
+    }
+    @media (min-width: 1366px) and (max-width: 1440px) {
+      #hero-intro, #hero-outro {
+        max-width: 800px;
+        width: 500px;
+      }
       #hero-intro {
         left: 3rem;
       }
       #hero-outro {
         right: 3rem;
+      }
+    }
+    @media (min-width: 1441px) {
+      #hero-intro, #hero-outro {
+        max-width: 900px;
+        width: 520px;
+      }
+      #hero-intro {
+        left: 8%;
+      }
+      #hero-outro {
+        right: 8%;
       }
     }
     #hero-outro {
@@ -404,7 +426,7 @@
     }
     #hero-intro h1, #hero-outro h1 {
       font-family: 'Syncopate', sans-serif;
-      font-size: 48px;
+      font-size: 65px;
       font-weight: 700;
       color: #ffffff;
       text-transform: uppercase;
@@ -413,7 +435,7 @@
       line-height: 1.1;
     }
     #hero-outro h1 {
-      font-size: 36px;
+      font-size: 45px;
     }
     #hero-intro p, #hero-outro p {
       font-family: var(--font-body);
@@ -461,9 +483,13 @@
     #hero-intro .btn-discover:hover .btn-arrow, #hero-outro .btn-discover:hover .btn-arrow {
       background: var(--accent-gold);
     }
+    @media (max-width: 1024px) {
+      #hero-intro h1 { font-size: 60px; }
+      #hero-outro h1 { font-size: 48px; }
+    }
     @media (max-width: 768px) {
-      #hero-intro h1 { font-size: 32px; }
-      #hero-outro h1 { font-size: 28px; }
+      #hero-intro h1 { font-size: 40px; }
+      #hero-outro h1 { font-size: 32px; }
       #hero-intro, #hero-outro { left: 5%; right: 5%; max-width: 90%; text-align: left; }
       #hero-outro { bottom: 5%; }
     }
@@ -980,6 +1006,133 @@
       opacity: 0.5;
       text-transform: uppercase;
     }
+      
+    /* Watch Details Callout */
+    #watch-details-callout {
+      position: absolute;
+      top: 25%;
+      left: 20%;
+      z-index: 20;
+      pointer-events: auto;
+      opacity: 0; /* Animated by GSAP */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+      
+    .callout-line-svg {
+      position: absolute;
+      top: 20px;
+      left: 100%;
+      width: 300px;
+      height: 200px;
+      pointer-events: none;
+      overflow: visible;
+    }
+      
+    .callout-line-path {
+      fill: none;
+      stroke: url(#line-gradient);
+      stroke-width: 2;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: shimmerLine 3s infinite linear;
+    }
+      
+    .callout-box {
+      background: rgba(10, 14, 20, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      border-radius: 12px;
+      width: 280px;
+      position: relative;
+      z-index: 2;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+      
+    .callout-box-brand {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+      
+    .callout-box-name {
+      font-family: 'Syncopate', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+      
+    .callout-box-id {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 24px;
+    }
+      
+    .btn-check-it-out {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent-gold);
+      color: var(--bg-color);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+      
+    .btn-check-it-out:hover {
+      background: #fff;
+      transform: scale(1.05);
+    }
+      
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+      
+    @keyframes shimmerLine {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1)); }
+      100% { opacity: 0.7; }
+    }
+      
+    @keyframes floatIn {
+      to { transform: translateY(0); opacity: 1; }
+    }
+      
+    @media (max-width: 1024px) {
+      #watch-details-callout {
+        top: 15%;
+        left: 10%;
+      }
+      .callout-line-svg {
+        width: 150px;
+        height: 100px;
+      }
+    }
+      
+    @media (max-width: 768px) {
+      #watch-details-callout {
+        display: none; /* Hide on mobile to prevent clutter */
+      }
+    }
   </style>
 </head>
 <body>
@@ -1059,7 +1212,7 @@
     <div class="canvas-container">
       <canvas id="hero-canvas"></canvas>
       <div id="hero-intro">
-        <h1>Dubai Watches</h1>
+        <h1>Dubai<br>Watches</h1>
       <p>Trusted valuation, expert inspection, same-day payment — selling your luxury watch has never been simpler or more secure.</p>
       <a href="#" class="btn-discover">
         Discover Watches
@@ -1072,7 +1225,7 @@
     </div>
     <div class="hero-text-overlay" id="text-4">Trusted where it matters most.</div>
     <div id="hero-outro">
-      <h1>Timepiece valued with care</h1>
+      <h1>Timepiece<br>valued with care</h1>
       <p>Decades of trust, honest pricing, expert eyes — your timepiece deserves care at every step</p>
       <a href="#" class="btn-discover">
         Discover Watches
@@ -1083,6 +1236,34 @@
         </div>
       </a>
     </div>
+      
+      <!-- Watch Details Callout (Glassmorphism & Line) -->
+      <div id="watch-details-callout">
+        <svg class="callout-line-svg" viewBox="0 0 300 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="rgba(255,255,255,1)" />
+              <stop offset="50%" stop-color="rgba(255,255,255,0.8)" />
+              <stop offset="100%" stop-color="rgba(201,160,77,0)" />
+            </linearGradient>
+          </defs>
+          <path class="callout-line-path" d="M0,20 L150,50 L280,180" />
+          <circle cx="280" cy="180" r="4" fill="var(--accent-gold)" filter="drop-shadow(0 0 5px var(--accent-gold))" />
+        </svg>
+        
+        <div class="callout-box">
+          <div class="callout-box-brand">Brand: Mini Focus</div>
+          <div class="callout-box-name">CHRONOGRAPH PRO</div>
+          <div class="callout-box-id">ID: MF-0182-BL</div>
+          <a href="#" class="btn-check-it-out">
+            Check it out
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
     </div> <!-- End canvas-container -->
   </section>
 
@@ -1376,42 +1557,62 @@
         // Progress bar logic
         gsap.set(".progress-bar", { height: `${progress * 100}vh` });
 
-        // Frame update
+        // Frame update (finishes at 85% of scroll)
+        let frameProgress = Math.min(progress, 0.85) / 0.85;
         const frameIndex = Math.min(
           frameCount - 1,
-          Math.floor(progress * frameCount)
+          Math.floor(frameProgress * frameCount)
         );
         currentFrame.index = frameIndex;
         renderFrame(frameIndex);
 
         // Text opacity logic
         let introOpacity = 1;
-        if(progress > 0.35 && progress < 0.45) {
-           introOpacity = 1 - ((progress - 0.35) / 0.10);
-        } else if(progress >= 0.45) {
+        if(progress > 0.25 && progress < 0.35) {
+           introOpacity = 1 - ((progress - 0.25) / 0.10);
+        } else if(progress >= 0.35) {
            introOpacity = 0;
         }
         gsap.set("#hero-intro", { opacity: introOpacity });
 
-        // Trusted where it matters most - ends even earlier
+        // Trusted where it matters most
         let text4Opacity = 0;
-        if(progress > 0.40 && progress < 0.50) {
-           text4Opacity = (progress - 0.40) / 0.10; // fade in
-        } else if(progress >= 0.50 && progress <= 0.55) {
+        if(progress > 0.35 && progress < 0.45) {
+           text4Opacity = (progress - 0.35) / 0.10; // fade in
+        } else if(progress >= 0.45 && progress <= 0.50) {
            text4Opacity = 1; // hold
-        } else if(progress > 0.55 && progress < 0.65) {
-           text4Opacity = 1 - ((progress - 0.55) / 0.10); // fade out
+        } else if(progress > 0.50 && progress < 0.60) {
+           text4Opacity = 1 - ((progress - 0.50) / 0.10); // fade out
         }
         gsap.set("#text-4", { opacity: text4Opacity });
 
         // Outro block
         let outroOpacity = 0;
-        if(progress > 0.85 && progress < 0.95) {
-           outroOpacity = (progress - 0.85) / 0.10; // fade in
-        } else if(progress >= 0.95) {
+        if(progress > 0.70 && progress < 0.80) {
+           outroOpacity = (progress - 0.70) / 0.10; // fade in
+        } else if(progress >= 0.80) {
            outroOpacity = 1; // hold till end
         }
         gsap.set("#hero-outro", { opacity: outroOpacity });
+        
+        // Watch details callout triggers at 85% (when frame stops) and holds until 100%
+        let calloutOpacity = 0;
+        if(progress >= 0.85) {
+           calloutOpacity = 1;
+           if (!window.calloutAnimated) {
+              window.calloutAnimated = true;
+              gsap.fromTo(".callout-line-path", { strokeDashoffset: 500 }, { strokeDashoffset: 0, duration: 1.5, ease: "power2.out" });
+              gsap.fromTo(".callout-box", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.8, ease: "power2.out" });
+           }
+        } else {
+           calloutOpacity = 0;
+           if (window.calloutAnimated) {
+              window.calloutAnimated = false; // Reset if user scrolls back up
+              gsap.set(".callout-line-path", { strokeDashoffset: 500 });
+              gsap.set(".callout-box", { y: 20, opacity: 0 });
+           }
+        }
+        gsap.set("#watch-details-callout", { opacity: calloutOpacity });
       }
     });
 
