@@ -1687,15 +1687,18 @@
     if (ladyWatchTrigger) {
       ladyWatchTrigger.addEventListener('click', (e) => {
         e.preventDefault();
+        const triggerImg = ladyWatchTrigger.querySelector('img');
         if (activeSequenceKey === 'default') {
           activeSequenceKey = 'lady';
           ladyWatchTrigger.classList.add('active-sequence');
+          if (triggerImg) triggerImg.src = 'images/Cat Watches/watch-business.png';
           const callout = document.getElementById('watch-details-callout');
           if (callout) callout.classList.add('lady-sequence');
           loadFramesSequentially('lady');
         } else {
           activeSequenceKey = 'default';
           ladyWatchTrigger.classList.remove('active-sequence');
+          if (triggerImg) triggerImg.src = 'images/Cat Watches/watch-elegent-woman.png';
           const callout = document.getElementById('watch-details-callout');
           if (callout) callout.classList.remove('lady-sequence');
         }
