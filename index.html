@@ -1425,7 +1425,7 @@
     // --- Nav Scrolled Logic ---
     ScrollTrigger.create({
       trigger: ".trust-badges-section",
-      start: "top top+=80",
+      start: "top bottom",
       onEnter: () => document.querySelector(".main-nav").classList.add("nav-scrolled"),
       onLeaveBack: () => document.querySelector(".main-nav").classList.remove("nav-scrolled")
     });
