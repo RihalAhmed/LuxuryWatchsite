@@ -1264,26 +1264,73 @@
     const ctx = canvas.getContext("2d");
 
     const frameCount = 960;
-    const frames = [];
+    const frames = new Array(frameCount);
     const currentFrame = { index: 0 };
-    let imagesLoaded = 0;
+    
+    // Fallback: Get the closest loaded frame to the requested index
+    function getClosestLoadedFrame(targetIndex) {
+      for (let offset = 0; offset < frameCount; offset++) {
+        if (targetIndex + offset < frameCount && frames[targetIndex + offset] && frames[targetIndex + offset].complete) return frames[targetIndex + offset];
+        if (targetIndex - offset >= 0 && frames[targetIndex - offset] && frames[targetIndex - offset].complete) return frames[targetIndex - offset];
+      }
+      return null;
+    }
 
-    for (let i = 1; i <= frameCount; i++) {
-      const img = new Image();
-      const paddedIndex = i.toString().padStart(4, "0");
-      img.src = `frames_webp/frame_${paddedIndex}.webp`;
-      img.onload = () => {
-        imagesLoaded++;
-        if (imagesLoaded === 1) { // Render first loaded frame as fallback
-          renderFrame(0);
+    // Load first frame immediately for instant visual
+    const firstImg = new Image();
+    firstImg.src = "frames_webp/frame_0001.webp";
+    firstImg.onload = () => {
+      frames[0] = firstImg;
+      renderFrame(0);
+      loadFramesSequentially();
+    };
+
+    function loadFramesSequentially() {
+      // Create load order: Skeleton (every 15th frame) then the rest
+      const loadOrder = [];
+      for (let i = 15; i <= frameCount; i += 15) loadOrder.push(i);
+      const skeletonSet = new Set(loadOrder);
+      for (let i = 2; i <= frameCount; i++) {
+        if (!skeletonSet.has(i)) loadOrder.push(i);
+      }
+      
+      let currentIndex = 0;
+      const chunkSize = 15; // Concurrent connections limit to avoid network freeze
+      
+      function loadNextChunk() {
+        if (currentIndex >= loadOrder.length) return;
+        
+        let loadedThisChunk = 0;
+        let chunkGoal = Math.min(chunkSize, loadOrder.length - currentIndex);
+        
+        for (let j = 0; j < chunkGoal; j++) {
+          const frameNum = loadOrder[currentIndex + j];
+          const img = new Image();
+          const paddedIndex = frameNum.toString().padStart(4, "0");
+          img.src = `frames_webp/frame_${paddedIndex}.webp`;
+          img.onload = img.onerror = () => {
+            frames[frameNum - 1] = img; // 0-indexed array
+            
+            // Re-render if this newly loaded frame is very close to current scroll position
+            if (Math.abs((frameNum - 1) - currentFrame.index) <= 15) {
+               renderFrame(currentFrame.index);
+            }
+
+            loadedThisChunk++;
+            if (loadedThisChunk === chunkGoal) {
+              currentIndex += chunkGoal;
+              setTimeout(loadNextChunk, 10); // small delay to let browser breathe
+            }
+          };
         }
-      };
-      frames.push(img);
+      }
+      
+      setTimeout(loadNextChunk, 100);
     }
 
     function renderFrame(index) {
-      if (frames[index] && frames[index].complete) {
-        const img = frames[index];
+      const img = getClosestLoadedFrame(index);
+      if (img) {
         const canvasRatio = canvas.width / canvas.height;
         const imgRatio = img.width / img.height;
         let w, h, x, y;
