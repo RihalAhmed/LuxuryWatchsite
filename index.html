@@ -45,6 +45,8 @@
       left: 0;
       width: 100%;
       z-index: 100;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
     .top-bar {
       background: var(--accent-gold);
@@ -191,7 +193,7 @@
     .nav-right {
       cursor: pointer;
       transition: background 0.3s, color 0.3s;
-      letter-spacing: 3px;
+      letter-spacing: normal;
       font-weight: 600;
       background: var(--accent-gold);
       color: var(--bg-color);
@@ -226,7 +228,8 @@
       z-index: 99;
       display: flex;
       flex-direction: column;
-      padding: 8rem 3rem;
+      justify-content: center;
+      padding: 4rem 2.5rem;
       box-sizing: border-box;
       transform: translateX(100%);
       transition: transform 0.4s ease-in-out;
@@ -242,14 +245,14 @@
       color: var(--text-color);
       text-transform: uppercase;
       text-decoration: none;
-      margin-bottom: 2rem;
+      margin-bottom: 1.4rem;
       cursor: pointer;
     }
     .mobile-dropdown {
       display: none;
       flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+      gap: 1.2rem;
+      margin-top: 1.2rem;
       padding-left: 1rem;
       border-left: 1px solid rgba(240, 237, 230, 0.2);
     }
@@ -264,11 +267,14 @@
     .btn-mobile-valuation {
       background: var(--accent-gold);
       color: var(--bg-color) !important;
-      padding: 15px 20px;
+      padding: 14px 24px;
       text-align: center;
       border-radius: 50px;
-      margin-top: 2rem;
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 280px;
       font-weight: 600;
+      letter-spacing: normal;
     }
 
     @media (max-width: 1024px) {
@@ -313,15 +319,28 @@
       }
     }
 
-    /* Progress Bar */
+    /* Ultra-Subtle Shooting Star Scroll Progress Bar */
     .progress-bar {
-      position: fixed;
-      top: 0;
-      right: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.45) 100%);
+      z-index: 110;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .progress-pointer {
+      position: absolute;
+      right: -1px;
+      top: -0.5px;
       width: 2px;
-      height: 0;
-      background-color: var(--accent-gold);
-      z-index: 100;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 0 3px rgba(255, 255, 255, 0.55);
+      pointer-events: none;
     }
 
     /* Hero Section */
@@ -555,62 +574,86 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 4rem;
+      gap: 5rem;
     }
     .trust-badges-grid img {
-      height: 45px;
+      height: 62px;
       width: auto;
-      filter: grayscale(1) invert(1) brightness(0.6);
+      filter: grayscale(1) invert(1) brightness(0.65);
       mix-blend-mode: screen;
       transition: all 0.4s ease;
       cursor: pointer;
     }
     .trust-badges-grid img:hover {
       filter: grayscale(1) invert(1) brightness(1);
+      transform: scale(1.06);
     }
     @media (max-width: 768px) {
       .trust-badges-grid {
-        gap: 2.5rem;
+        gap: 3rem;
       }
       .trust-badges-grid img {
-        height: 35px;
+        height: 46px;
       }
     }
 
     /* About Section */
     .about-section {
-      display: flex;
       background: var(--bg-color);
-      padding: 2rem 5% 8rem 5%;
+      padding: calc(2rem + 30px) 5% 3.5rem 5%;
+      margin-top: 40px;
+      margin-bottom: 0px;
+    }
+    .about-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: flex;
       gap: 5%;
       align-items: center;
     }
     .about-left {
-      flex: 1;
+      flex: 0 0 calc(50% - 2.5%);
+      width: calc(50% - 2.5%);
       border-radius: 4px;
       overflow: hidden;
+      aspect-ratio: 1 / 1;
+      position: relative;
     }
     .about-left img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s ease;
+      aspect-ratio: 1 / 1;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .about-left:hover img {
       transform: scale(1.05);
     }
     .about-right {
-      flex: 1.2;
+      flex: 0 0 calc(50% - 2.5%);
+      width: calc(50% - 2.5%);
       text-align: left;
+    }
+    .about-eyebrow {
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
     .about-right h2 {
       font-family: var(--font-display);
-      font-size: 36px;
+      font-size: 48px;
       color: var(--text-color);
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       font-weight: 400;
-      line-height: 1.2;
+      line-height: 1.15;
+    }
+    .about-right h2 .gold-text {
+      color: var(--accent-gold);
     }
     .about-desc {
       font-family: var(--font-body);
@@ -655,7 +698,7 @@
       color: var(--bg-color);
     }
     @media (max-width: 1024px) {
-      .about-section {
+      .about-section, .about-container {
         flex-direction: column;
       }
       .about-left, .about-right {
@@ -665,204 +708,1088 @@
       .about-left {
         margin-bottom: 3rem;
       }
+      .about-right h2 {
+        font-size: 36px;
+      }
     }
 
     /* Categories Section */
 
 
-    /* Horizontal Rail */
+    /* Horizontal Rail Products Section */
     .horizontal-rail-container {
-      height: 100vh;
+      height: 82vh;
+      max-height: 780px;
+      min-height: 600px;
       overflow: hidden;
       position: relative;
+      background: var(--bg-color);
+    }
+    .horizontal-rail-container::before {
+      content: "";
+      position: absolute;
+      width: 900px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(201, 160, 77, 0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
     }
     .horizontal-rail {
       display: flex;
-      width: 400vw;
-      height: 100vh;
-    }
-    .rail-panel {
-      width: 100vw;
-      height: 100vh;
+      flex-direction: row;
+      align-items: center;
+      gap: 16rem;
+      padding: 105px 8vw 0 8vw;
+      box-sizing: border-box;
+      width: max-content;
+      height: 82vh;
+      max-height: 780px;
+      min-height: 600px;
       position: relative;
-      flex-shrink: 0;
+      z-index: 1;
     }
-    .rail-panel video {
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 70px;
+      margin-top: 20px;
+      width: min(42vh, 450px);
+      flex: 0 0 auto;
+    }
+    .product-img-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 160, 77, 0.18);
+      background: #0f141d;
+    }
+    .product-img-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    .rail-panel::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10, 14, 20, 0.45);
-      z-index: 1;
+    .product-img-box:hover img {
+      transform: scale(1.06);
     }
-    .rail-content {
-      position: absolute;
-      bottom: 12%;
-      left: 10%;
-      z-index: 2;
+    .product-details {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .product-title {
       font-family: var(--font-display);
-      font-size: 40px;
-      font-style: italic;
-      max-width: 50%;
-      line-height: 1.2;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-color);
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+    }
+    .product-title:hover {
+      color: var(--accent-gold);
+    }
+    .product-title::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width 0.35s ease;
+    }
+    .product-title:hover::after {
+      width: 100%;
+    }
+    .product-price {
+      font-family: var(--font-body);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+    }
+    .product-listing-id {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      opacity: 0.5;
+      font-weight: 500;
+    }
+    .product-action {
+      margin-top: 1rem;
+    }
+    .rail-end-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      margin-top: 20px;
+      margin-left: -11.5rem;
+    }
+    .btn-shop-now {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 12px 14px 12px 42px;
+      background: #06080c;
+      border: 1px solid var(--accent-gold);
+      border-radius: 60px;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      box-shadow: none;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-shop-now .btn-text {
+      transition: color 0.4s ease;
+    }
+    .btn-shop-now .btn-arrow-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: none;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      flex-shrink: 0;
+    }
+    .btn-shop-now .btn-arrow-badge svg {
+      width: 18px;
+      height: 18px;
+      stroke: #06080c;
+      stroke-width: 2.5;
+      transition: all 0.4s ease;
+    }
+    .btn-shop-now:hover {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 35px rgba(201, 160, 77, 0.6);
+      transform: translateY(-3px);
+    }
+    .btn-shop-now:hover .btn-text {
+      color: #06080c;
+    }
+    .btn-shop-now:hover .btn-arrow-badge {
+      background: #06080c;
+      transform: translateX(4px);
+    }
+    .btn-shop-now:hover .btn-arrow-badge svg {
+      stroke: var(--accent-gold);
+      transform: translateX(2px);
     }
 
-    /* Parallax Statement */
-    .parallax-statement {
+    @media (max-width: 1024px) {
+      .horizontal-rail {
+        gap: 2.5rem;
+        padding: 110px 6vw 0 6vw;
+      }
+      .rail-end-cta {
+        margin-left: -1rem !important;
+      }
+      .product-card {
+        width: min(36vh, 340px);
+        gap: 40px;
+      }
+      .product-title {
+        font-size: 24px;
+      }
+      .product-price {
+        font-size: 20px;
+      }
+      .btn-shop-now {
+        padding: 10px 12px 10px 36px;
+        font-size: 14px;
+        gap: 24px;
+        letter-spacing: 3px;
+      }
+      .btn-shop-now .btn-arrow-badge {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    @media (max-width: 768px) {
+      .horizontal-rail {
+        gap: 2rem !important;
+        padding: 95px 8vw 0 8vw;
+      }
+      .rail-end-cta {
+        margin-left: -16px !important;
+      }
+      .product-card {
+        width: 82vw;
+        max-width: 320px;
+        gap: 25px;
+      }
+      .product-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+      .product-price {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      .product-listing-id {
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+      .product-action {
+        margin-top: 0px;
+      }
+      .btn-shop-now {
+        padding: 8px 10px 8px 30px;
+        font-size: 13px;
+        gap: 18px;
+        letter-spacing: 2.5px;
+      }
+      .btn-shop-now .btn-arrow-badge {
+        width: 36px;
+        height: 36px;
+      }
+      .btn-shop-now .btn-arrow-badge svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    /* Marquee Section */
+    .marquee-section-wrapper {
       position: relative;
-      height: 100vh;
+      width: 100%;
       overflow: hidden;
+      background: var(--bg-color);
+      z-index: 10;
+      margin-top: 0px;
+      margin-bottom: 20px;
+      padding: 5px 0 20px 0;
+    }
+    .marquee-section {
+      background: linear-gradient(90deg, #dfb45e 0%, #c9a04d 50%, #e2b75a 100%);
+      padding: 16px 0;
+      overflow: hidden;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 25s linear infinite;
+      will-change: transform;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 54px;
+      padding-right: 54px;
+      color: #05070a;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .marquee-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: #05070a;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+      opacity: 0.9;
+    }
+    .marquee-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    @media (max-width: 1024px) {
+      .marquee-section-wrapper { margin-top: 40px; }
+      .marquee-section { padding: 15px 0; }
+      .marquee-item { font-size: 15px; gap: 38px; padding-right: 38px; letter-spacing: 1.4px; }
+      .marquee-icon { width: 14px; height: 14px; }
+    }
+    @media (max-width: 768px) {
+      .marquee-section-wrapper { margin-top: 0px !important; margin-bottom: 20px !important; }
+      .marquee-section { padding: 13px 0; }
+      .marquee-item { font-size: 13px; gap: 28px; padding-right: 28px; letter-spacing: 1px; }
+      .marquee-icon { width: 13px; height: 13px; }
+    }
+
+    /* Effortless Bento Section */
+    .effortless-section {
+      background: var(--bg-color);
+      padding: 8rem 5%;
+      position: relative;
+      z-index: 5;
+    }
+    .effortless-container {
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+    .effortless-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 4rem;
+      margin-bottom: 3.5rem;
+    }
+    .effortless-eyebrow {
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .effortless-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--text-color);
+      line-height: 1.15;
+    }
+    .effortless-title .gold-text {
+      color: var(--accent-gold);
+      font-style: normal;
+    }
+    .effortless-header-right {
+      padding-top: 10px;
+    }
+    .effortless-desc {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 420px;
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .effortless-bar {
+      width: 50px;
+      height: 2px;
+      background: var(--accent-gold);
+    }
+
+    /* Bento Grid */
+    .effortless-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1.05fr 1.15fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+    .bento-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .bento-card {
+      background: linear-gradient(145deg, #14161c 0%, #000000 100%);
+      border: 1px solid rgba(201, 160, 77, 0.18);
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .bento-card:hover {
+      border-color: rgba(201, 160, 77, 0.4);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+    }
+
+    /* Valuation Card */
+    .valuation-card {
+      flex: 1;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .bento-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .bento-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #dfb45e 0%, #9e7a36 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #05070a;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(201, 160, 77, 0.25);
+    }
+    .bento-badge svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2;
+    }
+    .bento-badge-label {
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+    .bento-h3 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: #ffffff;
+      margin: 22px 0 12px 0;
+      line-height: 1.25;
+    }
+    .bento-p {
+      color: rgba(255, 255, 255, 0.68);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .valuation-icons-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 22px;
+    }
+    .v-icon-item svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-gold);
+      color: var(--accent-gold);
+      margin: 0 auto 8px;
+      display: block;
+    }
+    .v-icon-item span {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    /* Split Row Mini Cards */
+    .bento-split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .mini-card {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+    .mini-card svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent-gold);
+      color: var(--accent-gold);
+      margin-bottom: 14px;
+    }
+    .mini-card h4 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: #ffffff;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .mini-card p {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.62);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Tall Image Card */
+    .tall-image-card {
+      flex: 1;
+      padding: 0;
+      min-height: 520px;
+      border-color: rgba(201, 160, 77, 0.22);
+    }
+    .bento-full-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .tall-image-card:hover .bento-full-img {
+      transform: scale(1.04);
+    }
+
+    /* Collection Card */
+    .collection-card {
+      flex: 1;
+      padding: 32px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .collection-top-content {
+      padding: 0 30px;
+    }
+    .collection-img-wrapper {
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      overflow: hidden;
+      margin-top: 20px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .parallax-bg {
-      position: absolute;
-      top: -20%;
-      left: 0;
-      width: 100%;
-      height: 140%;
-      background-size: cover;
-      background-position: center;
-      z-index: -2;
+    .collection-bot-img {
+      width: 95%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    .parallax-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10, 14, 20, 0.55);
-      z-index: -1;
-    }
-    .parallax-text {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 52px;
-      text-align: center;
-      max-width: 60%;
-      line-height: 1.3;
-      font-weight: 400;
+    .collection-card:hover .collection-bot-img {
+      transform: scale(1.05);
     }
 
-    /* Selling Process */
-    .selling-process {
+    /* Footer Strip */
+    .effortless-footer-strip {
+      background: linear-gradient(145deg, #14161c 0%, #000000 100%);
+      border: 1px solid rgba(201, 160, 77, 0.2);
+      border-radius: 16px;
+      padding: 24px 36px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    .strip-item-main {
       display: flex;
-      height: 100vh;
-      overflow: hidden;
-      background: var(--bg-color);
-      padding: 6rem 4rem;
-      gap: 3rem;
-      box-sizing: border-box;
+      align-items: center;
+      gap: 16px;
     }
-    .process-col {
-      flex: 1;
-      position: relative;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .col-bg {
-      position: absolute;
-      top: -20%;
-      left: 0;
-      width: 100%;
-      height: 140%;
-      background-size: cover;
-      background-position: center;
-      z-index: 1;
-    }
-    .process-col::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to top, rgba(10,14,20,0.95) 0%, rgba(10,14,20,0.4) 100%);
-      z-index: 2;
-    }
-    .col-content {
-      position: relative;
-      z-index: 3;
-      padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      height: 100%;
-      box-sizing: border-box;
-    }
-    .step-num {
-      font-family: var(--font-display);
-      font-size: 64px;
+    .strip-item-main svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--accent-gold);
       color: var(--accent-gold);
-      margin-bottom: 1rem;
-      opacity: 0.9;
+      flex-shrink: 0;
     }
-    .col-content h3 {
-      font-family: var(--font-display);
-      font-size: 28px;
-      margin-bottom: 1.5rem;
-      font-weight: 400;
-    }
-    .col-content p {
+    .strip-item-main span {
+      color: rgba(255, 255, 255, 0.88);
       font-family: var(--font-body);
       font-size: 15px;
+      font-weight: 400;
+    }
+    .strip-item {
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .effortless-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .tall-image-card { min-height: 400px; }
+      .effortless-footer-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .strip-item { border-left: none; padding-left: 0; text-align: left; }
+    }
+    @media (max-width: 768px) {
+      .effortless-header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .effortless-title { font-size: 36px; }
+      .effortless-grid, .bento-col, .bento-split-row { gap: 12px !important; margin-bottom: 12px !important; }
+      .bento-split-row { grid-template-columns: 1fr; }
+      .valuation-icons-row { 
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+      .v-icon-item span { font-size: 11px !important; }
+      .effortless-footer-strip { grid-template-columns: 1fr; text-align: center; gap: 16px; padding: 24px 20px; margin-top: 12px !important; }
+      .strip-item-main { justify-content: center; }
+      .strip-item { text-align: center; }
+    }
+
+    /* Shop Promo Video Section */
+    .shop-promo-section {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      overflow: hidden;
+      background: var(--bg-color);
+      z-index: 5;
+      margin-bottom: 30px;
+    }
+    .shop-promo-wrapper {
+      position: absolute;
+      top: -15%;
+      left: 0;
+      width: 100%;
+      height: 130%;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shop-promo-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .shop-promo-top-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 22%;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(180deg, var(--bg-color) 0%, var(--bg-color) 6%, rgba(10, 14, 20, 0.8) 35%, rgba(10, 14, 20, 0.35) 65%, rgba(10, 14, 20, 0) 100%);
+    }
+    .shop-promo-bottom-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 22%;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(0deg, var(--bg-color) 0%, var(--bg-color) 6%, rgba(10, 14, 20, 0.8) 35%, rgba(10, 14, 20, 0.35) 65%, rgba(10, 14, 20, 0) 100%);
+    }
+    .shop-promo-tint-overlay {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .shop-promo-section {
+        height: 70vh;
+      }
+    }
+
+    /* Our Simple Process Section */
+    .simple-process-section {
+      background: var(--bg-color);
+      padding: 2rem 5% 8rem 5%;
+      position: relative;
+      z-index: 5;
+    }
+    .simple-process-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.85fr 0.95fr;
+      gap: 90px;
+      align-items: stretch;
+      position: relative;
+    }
+    .process-panel-left {
+      background: linear-gradient(145deg, #14161c 0%, #000000 100%);
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      border-radius: 44px 190px 190px 44px;
+      padding: 55px 45px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(201, 160, 77, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .process-panel-left > * {
+      max-width: 440px;
+    }
+    .process-panel-right {
+      background: linear-gradient(145deg, #14161c 0%, #000000 100%);
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      border-radius: 60px 44px 44px 60px;
+      padding: 55px 32px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(201, 160, 77, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      gap: 32px;
+    }
+    .process-heading {
+      font-family: var(--font-display);
+      font-size: 42px;
+      line-height: 1.15;
+      color: var(--text-color);
+      margin-bottom: 45px;
+      font-weight: 500;
+    }
+    .process-title-gold {
+      color: var(--accent-gold);
+    }
+    .process-step-item {
+      display: flex;
+      gap: 24px;
+      position: relative;
+    }
+    .step-badge-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .step-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(201, 160, 77, 0.08);
+      z-index: 2;
+      box-shadow: 0 0 15px rgba(201, 160, 77, 0.15);
+    }
+    .step-connector {
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent-gold) 0%, rgba(201, 160, 77, 0.3) 100%);
+      flex-grow: 1;
+      margin: 6px 0;
+      min-height: 28px;
+    }
+    .step-info {
+      padding-bottom: 34px;
+    }
+    .process-step-item:last-child .step-info {
+      padding-bottom: 0;
+    }
+    .step-info h4 {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .step-info p {
+      font-family: var(--font-body);
+      font-size: 14px;
       line-height: 1.6;
-      opacity: 0.85;
-      font-weight: 300;
+      color: rgba(240, 237, 230, 0.75);
+    }
+    @keyframes horologicalFloat {
+      0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+      50% { transform: translate(-50%, -52%) rotate(8deg) scale(1.03); }
+      100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    }
+    .process-watch-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 43%;
+      left: 54%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .process-watch-bg-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 440px;
+      height: 440px;
+      z-index: -1;
+      pointer-events: none;
+      animation: horologicalFloat 18s ease-in-out infinite;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8));
+    }
+    .process-center-img {
+      max-width: 100%;
+      width: 260px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.85));
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+    }
+    .process-watch-col:hover .process-center-img {
+      transform: scale(1.04) rotate(-2deg);
+    }
+    .process-feature-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+    }
+    .feature-icon-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-gold);
+      color: var(--accent-gold);
+      background: rgba(201, 160, 77, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 18px rgba(201, 160, 77, 0.15);
+    }
+    .feature-icon-circle svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-gold);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .feature-info h4 {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .feature-info p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(240, 237, 230, 0.75);
+    }
+    @media (max-width: 1200px) {
+      .simple-process-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        position: static;
+      }
+      .process-watch-col {
+        position: relative;
+        transform: none;
+        left: auto;
+        top: auto;
+        margin: 20px auto;
+        order: -1;
+        pointer-events: auto;
+      }
+      .process-watch-bg-circle {
+        width: 400px;
+        height: 400px;
+      }
+      .process-center-img {
+        width: 240px;
+      }
+      .process-panel-left > * {
+        max-width: 100%;
+      }
+      .process-panel-left, .process-panel-right {
+        border-radius: 36px;
+        padding: 40px 32px;
+      }
+    }
+    @media (max-width: 768px) {
+      .simple-process-section {
+        padding: 5rem 5%;
+      }
+      .simple-process-container {
+        gap: 12px !important;
+      }
+      .process-heading {
+        font-size: 34px;
+        margin-bottom: 35px;
+      }
+      .process-watch-bg-circle {
+        width: 340px;
+        height: 340px;
+      }
+      .process-panel-left, .process-panel-right {
+        border-radius: 28px;
+        padding: 32px 24px;
+      }
+      .step-circle, .feature-icon-circle {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
+      }
     }
 
     /* Guarantees Grid */
     .guarantees {
-      display: flex;
-      padding: 10rem 8%;
-      gap: 6rem;
       background: var(--bg-color);
-      align-items: center;
+      padding: 8rem 5%;
+      position: relative;
+      z-index: 5;
     }
-    .guarantees-visual {
-      flex: 1;
-      border-radius: 4px;
+    .guarantees-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      background: url('images/Solid-points-bg.png') no-repeat center left;
+      background-size: cover;
+      border-radius: 16px;
       overflow: hidden;
-    }
-    .guarantees-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transform: scale(1.02);
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65);
+      display: flex;
+      justify-content: flex-end;
+      padding: 65px 65px 65px 48%;
     }
     .guarantees-content {
-      flex: 1;
+      width: 100%;
+      max-width: 620px;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 24px;
     }
     .guarantee-card {
-      padding: 3rem;
-      border-top: 1px solid rgba(201, 160, 77, 0.3);
-      background: linear-gradient(to bottom, rgba(201, 160, 77, 0.05) 0%, transparent 100%);
+      padding: 35px 40px;
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(20, 22, 28, 0.88) 0%, rgba(0, 0, 0, 0.92) 100%);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55);
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .guarantee-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 160, 77, 0.45);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
     }
     .guarantee-card h4 {
       font-family: var(--font-body);
       font-size: 13px;
       letter-spacing: 3px;
       color: var(--accent-gold);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
+      font-weight: 600;
     }
     .guarantee-card p {
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.5;
       font-weight: 400;
+      color: var(--text-color);
+    }
+    @media (max-width: 1200px) {
+      .guarantees-container {
+        padding: 50px 40px 50px 40%;
+      }
+    }
+    @media (max-width: 768px) {
+      .guarantees-container {
+        padding: 40px 24px;
+        background-position: center top;
+        justify-content: center;
+      }
+      .guarantees-content {
+        max-width: 100%;
+      }
+      .guarantee-card p {
+        font-size: 18px;
+      }
+      .about-summary-logo {
+        max-width: 180px;
+        margin-bottom: 2rem;
+      }
+      .about-summary-section {
+        padding: 3.5rem 5% !important;
+        min-height: auto !important;
+      }
+      .about-content {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .about-content p {
+        font-size: 23px !important;
+        line-height: 1.45 !important;
+        text-align: center !important;
+        word-wrap: break-word;
+        white-space: normal !important;
+      }
+      .scroll-word {
+        margin-right: 0.22em !important;
+        margin-bottom: 0.12em !important;
+        display: inline-block !important;
+      }
     }
 
-    /* About Section */
-    .about-section {
+    /* About Summary Section */
+    .about-summary-section {
       position: relative;
-      padding: 12rem 8%;
+      padding: 10rem 8%;
+      min-height: 100vh;
+      box-sizing: border-box;
       text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: -20px;
+      z-index: 10;
     }
     .about-bg {
       position: absolute;
@@ -880,101 +1807,895 @@
     .about-content {
       position: relative;
       z-index: 3;
-      max-width: 900px;
+      max-width: 950px;
+    }
+    .about-summary-logo {
+      display: block;
+      margin: 0 auto 3rem;
+      max-width: 240px;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(223, 180, 94, 0.2));
     }
     .about-content p {
       font-family: var(--font-display);
-      font-size: 34px;
+      font-size: 36px;
       line-height: 1.6;
       color: var(--text-color);
       font-weight: 400;
     }
-
-    /* Valuation Form */
-    .valuation-section {
-      position: relative;
-      padding: 10rem 5%;
+    .scroll-word {
+      display: inline-block;
+      margin-right: 0.28em;
+      margin-bottom: 0.15em;
+      will-change: opacity, color;
+    }
+    .trusted-customers-badge {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 3.5rem auto 0;
+      width: fit-content;
+      padding: 10px 22px;
+      background: rgba(20, 22, 28, 0.85);
+      border: 1px solid rgba(201, 160, 77, 0.28);
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .valuation-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-size: cover;
-      background-position: center;
-      z-index: 1;
+    .trusted-customers-badge:hover {
+      transform: translateY(-2px);
+      border-color: rgba(201, 160, 77, 0.5);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
     }
-    .valuation-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10, 14, 20, 0.85);
-      z-index: 2;
+    .trusted-avatars-col {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
     }
-    .valuation-content {
-      position: relative;
-      z-index: 3;
-      width: 100%;
-      max-width: 550px;
-      background: var(--bg-color);
-      padding: 4rem;
-      border-top: 2px solid var(--accent-gold);
+    .trusted-avatars-col img {
+      height: 36px;
+      width: auto;
+      display: block;
     }
-    .valuation-content h2 {
-      font-family: var(--font-display);
-      font-size: 32px;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: var(--accent-gold);
-      font-weight: 400;
-    }
-    .valuation-form {
+    .trusted-info-col {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      align-items: flex-start;
+      text-align: left;
+      gap: 4px;
     }
-    .valuation-form input,
-    .valuation-form select {
-      width: 100%;
-      padding: 1rem 0;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid rgba(240, 237, 230, 0.2);
-      color: var(--text-color);
-      font-family: var(--font-body);
-      font-size: 15px;
-      box-sizing: border-box;
-      transition: border-color 0.3s;
-      border-radius: 0;
-    }
-    .valuation-form input::placeholder {
-      color: rgba(240, 237, 230, 0.4);
-    }
-    .valuation-form input:focus,
-    .valuation-form select:focus {
-      outline: none;
-      border-bottom-color: var(--accent-gold);
-    }
-    .valuation-form select option {
-      background: var(--bg-color);
-      color: var(--text-color);
-    }
-    .valuation-form button {
-      margin-top: 1.5rem;
-      padding: 1.5rem;
-      background: var(--accent-gold);
-      color: var(--bg-color);
-      border: none;
+    .trusted-text {
       font-family: var(--font-body);
       font-size: 13px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
       font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
+      letter-spacing: 0.5px;
+      color: var(--text-color);
+      line-height: 1.1;
     }
-    .valuation-form button:hover {
+    .trusted-stars {
+      color: var(--accent-gold);
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      line-height: 1;
+      text-shadow: 0 0 8px rgba(223, 180, 94, 0.35);
+    }
+    @media (max-width: 768px) {
+      .trusted-customers-badge {
+        padding: 8px 16px;
+        gap: 12px;
+      }
+      .trusted-avatars-col img {
+        height: 32px;
+      }
+      .trusted-text {
+        font-size: 12px;
+      }
+      .trusted-stars {
+        font-size: 11px;
+      }
+    }
+
+    /* Reviews Marquee Section */
+    .reviews-section {
+      background: var(--bg-color);
+      padding: 8rem 0;
+      position: relative;
+      overflow: hidden;
+      z-index: 5;
+    }
+    .reviews-header {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto 2rem;
+      padding: 0 5%;
+    }
+    .reviews-header h2 {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--text-color);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .reviews-header p {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(240, 237, 230, 0.75);
+      line-height: 1.6;
+    }
+    .reviews-marquee-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px 0;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .reviews-track {
+      display: flex;
+      gap: 24px;
+      padding: 8px 0;
+      width: max-content;
+      will-change: transform;
+    }
+    .track-left {
+      animation: reviewsScrollLeft 38s linear infinite;
+    }
+    .track-right {
+      animation: reviewsScrollRight 42s linear infinite;
+    }
+    .reviews-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes reviewsScrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes reviewsScrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .review-card {
+      width: 440px;
+      flex-shrink: 0;
+      background: linear-gradient(145deg, #14161c 0%, #000000 100%);
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      border-radius: 20px;
+      padding: 32px 36px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .review-card:hover {
+      border-color: rgba(201, 160, 77, 0.55);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+      transform: translateY(-4px);
+    }
+    .review-rating-stars {
+      color: var(--accent-gold);
+      font-size: 16px;
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-bottom: 2px;
+      text-shadow: 0 0 10px rgba(223, 180, 94, 0.35);
+    }
+    .review-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-color);
+      font-style: italic;
+      flex-grow: 1;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid rgba(201, 160, 77, 0.15);
+      padding-top: 18px;
+    }
+    .author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(201, 160, 77, 0.45);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    }
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+    .author-name {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-color);
+      line-height: 1.1;
+    }
+    .author-location {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--accent-gold);
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 768px) {
+      .reviews-header h2 {
+        font-size: 34px;
+      }
+      .review-card {
+        width: 320px;
+        padding: 24px;
+        border-radius: 16px;
+      }
+      .review-body {
+        font-size: 14px;
+      }
+      .author-avatar {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    /* Categories Grid Section */
+    .categories-section {
+      background: var(--bg-color);
+      padding: 8rem 5%;
+      position: relative;
+      z-index: 5;
+      margin-bottom: 80px;
+    }
+    .categories-container {
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+    .categories-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    .categories-header h2 {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--text-color);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .categories-header p {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: rgba(240, 237, 230, 0.75);
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .categories-header {
+        margin-bottom: 1.5rem !important;
+      }
+      .categories-header h2 {
+        font-size: 34px;
+      }
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 350px 350px;
+      gap: 24px;
+    }
+    .cat-card-tall {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+    .cat-card-top-left {
+      grid-column: 3 / 4;
+      grid-row: 1 / 2;
+    }
+    .cat-card-top-right {
+      grid-column: 4 / 5;
+      grid-row: 1 / 2;
+    }
+    .cat-card-wide {
+      grid-column: 3 / 5;
+      grid-row: 2 / 3;
+    }
+    .category-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #14161c;
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    }
+    .category-card:hover {
+      border-color: rgba(201, 160, 77, 0.65);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(223, 180, 94, 0.2);
+    }
+    .category-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .category-card:hover .category-img {
+      transform: scale(1.08);
+    }
+    .category-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(10, 14, 20, 0.35) 68%, rgba(10, 14, 20, 0.9) 100%);
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .category-title-wrap {
+      position: absolute;
+      left: 32px;
+      bottom: 30px;
+      right: 32px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .category-card:hover .category-title-wrap {
+      transform: translateY(-4px);
+    }
+    .category-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--text-color);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin: 0;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+    }
+    .cat-card-top-left .category-title,
+    .cat-card-top-right .category-title {
+      font-size: 22px;
+    }
+    .category-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(223, 180, 94, 0.15);
+      border: 1px solid rgba(223, 180, 94, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold);
+      flex-shrink: 0;
+      transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    }
+    .category-card:hover .category-arrow {
+      background: var(--accent-gold);
+      color: #000000;
+      border-color: var(--accent-gold);
+      transform: rotate(45deg);
+    }
+    .category-arrow svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.2;
+      transition: stroke 0.3s ease;
+    }
+
+    @media (max-width: 1024px) {
+      .categories-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .cat-card-tall {
+        grid-column: 1 / 3;
+        height: 520px;
+      }
+      .cat-card-top-left {
+        grid-column: 1 / 2;
+        grid-row: auto;
+        height: 330px;
+      }
+      .cat-card-top-right {
+        grid-column: 2 / 3;
+        grid-row: auto;
+        height: 330px;
+      }
+      .cat-card-wide {
+        grid-column: 1 / 3;
+        grid-row: auto;
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+      .cat-card-tall,
+      .cat-card-top-left,
+      .cat-card-top-right,
+      .cat-card-wide {
+        grid-column: 1 / 2;
+        height: 320px;
+      }
+      .category-title-wrap {
+        left: 22px;
+        bottom: 22px;
+        right: 22px;
+      }
+      .category-title,
+      .cat-card-top-left .category-title,
+      .cat-card-top-right .category-title {
+        font-size: 22px;
+      }
+    }
+
+    /* Blogs Showcase Section */
+    .blogs-section {
+      background: var(--bg-color);
+      padding: 6rem 5% 9rem;
+      position: relative;
+      z-index: 5;
+    }
+    .blogs-container {
+      max-width: 1350px;
+      margin: 0 auto;
+    }
+    .blogs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3.5rem;
+      gap: 40px;
+    }
+    .blogs-title {
+      font-family: var(--font-display);
+      font-size: 46px;
+      color: var(--text-color);
+      font-weight: 400;
+      max-width: 550px;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .blogs-description {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(240, 237, 230, 0.75);
+      line-height: 1.6;
+      max-width: 380px;
+      margin: 0;
+      text-align: right;
+    }
+    
+    .blogs-slider-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+    .blogs-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      padding: 24px 0;
+    }
+    .blogs-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-card {
+      flex: 0 0 calc((100% - 72px) / 4);
+      height: 485px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      background: #14161c;
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      scroll-snap-align: start;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .blog-card:hover {
+      border-color: rgba(201, 160, 77, 0.7);
+      transform: translateY(-8px);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(223, 180, 94, 0.25);
+    }
+    .blog-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .blog-card:hover .blog-img {
+      transform: scale(1.08);
+    }
+    .blog-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(10, 14, 20, 0.5) 60%, rgba(10, 14, 20, 0.95) 95%);
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .blog-content {
+      position: absolute;
+      left: 26px;
+      bottom: 26px;
+      right: 26px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .blog-card:hover .blog-content {
+      transform: translateY(-4px);
+    }
+    .blog-meta {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--accent-gold);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .blog-heading {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: var(--text-color);
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+    }
+
+    .blogs-footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .see-all-blogs-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 38px;
+      background: linear-gradient(145deg, #181c24 0%, #0c0e14 100%);
+      border: 1px solid rgba(201, 160, 77, 0.4);
+      border-radius: 50px;
+      color: var(--text-color);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .see-all-blogs-btn:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(223, 180, 94, 0.25);
+      transform: translateY(-2px);
+      color: var(--accent-gold);
+    }
+    .see-all-blogs-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      transition: transform 0.3s ease;
+    }
+    .see-all-blogs-btn:hover svg {
+      transform: translate(3px, -3px);
+    }
+
+    .blogs-nav-buttons {
+      display: flex;
+      gap: 14px;
+    }
+    .blog-nav-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #14161c;
+      border: 1px solid rgba(201, 160, 77, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-nav-btn:hover {
+      background: var(--accent-gold);
+      color: #000000;
+      border-color: var(--accent-gold);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 22px rgba(223, 180, 94, 0.45);
+      transform: scale(1.06);
+    }
+    .blog-nav-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 1200px) {
+      .blog-card {
+        flex: 0 0 calc((100% - 48px) / 3);
+        height: 450px;
+      }
+    }
+    @media (max-width: 991px) {
+      .blogs-header {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .blogs-description {
+        text-align: left;
+        max-width: 100%;
+      }
+      .blog-card {
+        flex: 0 0 calc((100% - 24px) / 2);
+        height: 430px;
+      }
+    }
+    @media (max-width: 640px) {
+      .blogs-title {
+        font-size: 34px;
+      }
+      .blog-card {
+        flex: 0 0 100%;
+        height: 400px;
+      }
+      .see-all-blogs-btn {
+        padding: 14px 28px;
+        font-size: 15px;
+      }
+      .blog-nav-btn {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background: var(--bg-color);
+      padding: 6rem 5% 9rem;
+      position: relative;
+      z-index: 5;
+    }
+    .faq-container {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: flex-start;
+    }
+    .faq-sidebar {
+      position: sticky;
+      top: 120px;
+    }
+    .faq-tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 46px;
+      color: var(--text-color);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 0 0 24px 0;
+    }
+    .faq-subtitle {
+      font-family: var(--font-body);
+      font-size: 17px;
+      color: rgba(240, 237, 230, 0.75);
+      line-height: 1.6;
+      margin: 0 0 35px 0;
+    }
+    .faq-contact-box {
+      background: linear-gradient(145deg, #181c24 0%, #0c0e14 100%);
+      border: 1px solid rgba(201, 160, 77, 0.3);
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .faq-contact-box h4 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--accent-gold);
+      margin: 0 0 10px 0;
+      font-weight: 400;
+    }
+    .faq-contact-box p {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: rgba(240, 237, 230, 0.7);
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+    .faq-contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--accent-gold);
+      color: #000000;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(201, 160, 77, 0.3);
+    }
+    .faq-contact-btn:hover {
       background: #e2b75a;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(201, 160, 77, 0.5);
+    }
+    .faq-contact-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    /* FAQ Accordion List */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .faq-item {
+      background: #14161c;
+      border: 1px solid rgba(201, 160, 77, 0.22);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease, background 0.4s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .faq-item:hover {
+      border-color: rgba(201, 160, 77, 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(201, 160, 77, 0.18);
+    }
+    .faq-item.active {
+      border-color: var(--accent-gold);
+      background: linear-gradient(160deg, #181c26 0%, #11141b 100%);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 30px rgba(223, 180, 94, 0.25);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 26px 30px;
+      background: transparent;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-color);
+      font-family: var(--font-body);
+      font-size: 19px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .faq-item:hover .faq-question,
+    .faq-item.active .faq-question {
+      color: var(--accent-gold);
+    }
+    .faq-icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #101218;
+      border: 1px solid rgba(201, 160, 77, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent-gold);
+      transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .faq-item:hover .faq-icon-badge,
+    .faq-item.active .faq-icon-badge {
+      background: var(--accent-gold);
+      color: #000000;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(223, 180, 94, 0.45);
+    }
+    .faq-item.active .faq-icon-badge {
+      transform: rotate(45deg);
+    }
+    .faq-icon-badge svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-answer-inner {
+      padding: 0 30px 28px 30px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: rgba(240, 237, 230, 0.82);
+      line-height: 1.75;
+      border-top: 1px solid rgba(201, 160, 77, 0.14);
+      padding-top: 22px;
+    }
+    .faq-answer-inner strong {
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .faq-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .faq-sidebar {
+        position: static;
+        max-width: 700px;
+      }
+    }
+    @media (max-width: 640px) {
+      .faq-title {
+        font-size: 34px;
+      }
+      .faq-question {
+        padding: 20px;
+        font-size: 17px;
+      }
+      .faq-answer-inner {
+        padding: 0 20px 22px 20px;
+        font-size: 15px;
+      }
+      .faq-icon-badge {
+        width: 36px;
+        height: 36px;
+      }
     }
 
     /* Footer */
@@ -1239,6 +2960,410 @@
         right: 130px;
       }
     }
+
+    /* Floating Go Top Button */
+    .go-top-btn {
+      position: fixed;
+      left: 36px;
+      bottom: 36px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(20, 22, 28, 0.88) 0%, rgba(5, 7, 10, 0.96) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201, 160, 77, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .go-top-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .go-top-btn:hover {
+      border-color: rgba(223, 180, 94, 0.85);
+      background: linear-gradient(145deg, rgba(30, 34, 44, 0.95) 0%, rgba(10, 13, 20, 0.98) 100%);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(223, 180, 94, 0.32), 0 0 18px rgba(223, 180, 94, 0.22);
+    }
+    .go-top-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent-gold, #dfb45e);
+      stroke-width: 2.2;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .go-top-btn:hover svg {
+      transform: translateY(-3px);
+    }
+    @media (max-width: 768px) {
+      .go-top-btn {
+        left: 20px;
+        bottom: 24px;
+        width: 46px;
+        height: 46px;
+      }
+      .go-top-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    /* ==========================================
+       MASTER FULL-SITE RESPONSIVE SYSTEM
+       Standards for Laptop, Tablet & Mobile Devices
+       ========================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      max-width: 100vw;
+      overflow-x: clip;
+      position: relative;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* --- Laptops & Larger Tablets (Max-width: 1200px) --- */
+    @media (max-width: 1200px) {
+      .main-nav {
+        padding: 1.25rem 2.5rem;
+      }
+      .about-container, .effortless-container, .simple-process-container, .faq-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+      .about-left {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+      .horizontal-rail {
+        gap: 7rem;
+      }
+    }
+
+    /* --- Tablets in Portrait & Mid-Sized Laptops (Max-width: 1024px) --- */
+    @media (max-width: 1024px) {
+      .top-bar {
+        padding: 5px 1.5rem;
+        font-size: 12px;
+      }
+      .main-nav {
+        padding: 1.2rem 1.8rem;
+      }
+      .trust-badges-grid {
+        gap: 3.5rem;
+      }
+      .about-section {
+        padding: 3.5rem 5% 2.5rem 5% !important;
+        margin-bottom: -35px !important;
+      }
+      .horizontal-rail {
+        padding-top: 110px !important;
+      }
+      .horizontal-rail-container, .horizontal-rail {
+        height: 72vh !important;
+        max-height: 680px !important;
+        min-height: 520px !important;
+      }
+      .rail-end-cta {
+        margin-left: 0 !important;
+      }
+      /* Reduce video section height on tablet for better visibility */
+      .shop-promo-section {
+        height: 55vh !important;
+        min-height: 360px;
+      }
+      .about-right h2, .effortless-title, .process-heading, .blogs-title, .faq-title {
+        font-size: 38px;
+      }
+      #hero-intro h1 {
+        font-size: 52px;
+      }
+      #hero-outro h1 {
+        font-size: 44px;
+      }
+    }
+
+    /* --- Tablets & Small Landscape Screens (Max-width: 900px) --- */
+    @media (max-width: 900px) {
+      .top-center {
+        display: none; /* Prevent text collisions in header on medium viewports */
+      }
+      .top-bar {
+        justify-content: space-between;
+      }
+      .top-left, .top-right {
+        flex: none;
+      }
+      .horizontal-rail {
+        gap: 5rem;
+      }
+    }
+
+    /* --- Mobile & Tablet Portrait (Max-width: 768px) --- */
+    @media (max-width: 768px) {
+      .header-wrapper {
+        width: 100vw;
+      }
+      .main-nav {
+        padding: 1rem 1.25rem;
+      }
+      /* Ensure logo shrinks properly on mobile devices */
+      .logo {
+        height: 26px !important;
+        width: auto !important;
+        max-width: 160px;
+        object-fit: contain;
+      }
+      #hero-watches-showcase {
+        top: 75px !important;
+        right: 4% !important;
+        transform: scale(0.9) !important;
+        transform-origin: top right;
+      }
+      .trust-badges-section {
+        padding: 4rem 5% 2rem 5%;
+      }
+      .trust-badges-grid {
+        gap: 2.5rem 2rem;
+      }
+      .trust-badges-grid img {
+        height: 38px !important;
+      }
+      .about-section {
+        padding: 2.5rem 5% 2rem 5% !important;
+        margin-top: 20px;
+        margin-bottom: -25px !important;
+      }
+      .horizontal-rail {
+        gap: 2rem !important;
+        padding-top: 95px !important;
+      }
+      .horizontal-rail-container, .horizontal-rail {
+        height: 78vh !important;
+        max-height: 660px !important;
+        min-height: 560px !important;
+      }
+      .product-card {
+        width: 85vw !important;
+        max-width: 280px !important;
+        gap: 16px !important;
+      }
+      .product-img-box {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        height: auto !important;
+      }
+      .product-card img, .product-img-box img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        object-fit: cover !important;
+      }
+      .product-title {
+        margin-bottom: 10px !important;
+        line-height: 1.3 !important;
+      }
+      .product-price {
+        margin-bottom: 8px !important;
+      }
+      .product-listing-id {
+        margin-bottom: 16px !important;
+      }
+      .product-action {
+        margin-top: 0px !important;
+      }
+      .rail-end-cta {
+        margin-left: -16px !important;
+      }
+      .shop-promo-section {
+        height: 45vh !important;
+        min-height: 280px;
+        margin-bottom: 30px !important;
+      }
+      .about-left img {
+        border-radius: 8px;
+      }
+      .about-right h2 {
+        font-size: 32px;
+        margin-top: 1.5rem;
+      }
+      /* Standardize right and left padding across all core sections on mobile */
+      .about-section,
+      .effortless-section,
+      .simple-process-section,
+      .faq-section,
+      .categories-section,
+      .guarantees,
+      .blogs-section,
+      .about-summary-section {
+        padding: 3.5rem 5% !important;
+        margin-top: 0 !important;
+      }
+      .reviews-section {
+        padding: 3.5rem 0 !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+      }
+      .categories-section {
+        margin-bottom: 80px !important;
+      }
+      .guarantees {
+        padding-top: 2.5rem !important;
+      }
+      .faq-container, .about-container, .effortless-container, .simple-process-container, .categories-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+      }
+      .simple-process-container {
+        gap: 12px !important;
+      }
+      .faq-question {
+        padding: 16px !important;
+      }
+      .faq-answer-inner {
+        padding: 20px 16px 20px 16px !important;
+      }
+      .process-watch-bg-circle {
+        width: 320px;
+        height: 320px;
+      }
+      .process-panel-left, .process-panel-right {
+        padding: 24px 18px !important;
+      }
+      .footer {
+        padding: 3rem 1.5rem;
+      }
+      .go-top-btn {
+        bottom: 20px;
+        left: 18px;
+      }
+    }
+
+    /* --- Small Mobile Phones (Max-width: 480px & down to 360px) --- */
+    @media (max-width: 480px) {
+      .top-bar {
+        padding: 4px 0.8rem;
+        font-size: 11px;
+      }
+      .whatsapp-btn {
+        padding: 3px 8px;
+        font-size: 9px;
+      }
+      .main-nav {
+        padding: 0.8rem 1rem;
+      }
+      .logo {
+        height: 22px !important;
+        max-width: 135px;
+      }
+      #hero-intro h1, #hero-outro h1 {
+        font-size: 32px !important;
+        margin-bottom: 0.6rem;
+      }
+      #hero-intro p, #hero-outro p {
+        font-size: 13px !important;
+        line-height: 1.5;
+        margin-bottom: 1.2rem;
+      }
+      .trust-badges-grid {
+        gap: 1.8rem 1.2rem;
+      }
+      .trust-badges-grid img {
+        height: 32px !important;
+      }
+      .about-right h2, .effortless-title, .process-heading, .blogs-title, .faq-title {
+        font-size: 27px !important;
+        line-height: 1.2;
+      }
+      .valuation-icons-row {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
+      }
+      .v-icon-item span {
+        font-size: 10px !important;
+      }
+      .product-card {
+        width: 86vw !important;
+        max-width: 270px !important;
+        gap: 14px !important;
+      }
+      .product-img-box {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        height: auto !important;
+      }
+      .product-card img, .product-img-box img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
+        object-fit: cover !important;
+      }
+      .btn-shop-now {
+        padding: 8px 12px 8px 22px !important;
+        font-size: 12px !important;
+        gap: 12px !important;
+      }
+      /* Prevent circular watch backdrop overflow on very narrow screens (<360px) */
+      .process-watch-bg-circle {
+        width: 260px !important;
+        height: 260px !important;
+      }
+      .process-center-img {
+        width: 170px !important;
+      }
+      .faq-question {
+        font-size: 15px !important;
+        padding: 16px !important;
+      }
+      .faq-answer-inner {
+        font-size: 14px !important;
+        padding: 20px 16px 20px 16px !important;
+      }
+      .go-top-btn {
+        left: 14px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px;
+      }
+      .go-top-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+      .about-section,
+      .effortless-section,
+      .simple-process-section,
+      .faq-section,
+      .categories-section,
+      .guarantees,
+      .blogs-section,
+      .about-summary-section {
+        padding: 2.8rem 5% !important;
+      }
+      .reviews-section {
+        padding: 2.8rem 0 !important;
+      }
+      .about-content p {
+        font-size: 21px !important;
+        line-height: 1.4 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1267,20 +3392,20 @@
       
       <!-- Desktop Menu -->
       <div class="nav-center">
+        <a href="#" class="nav-item">Sell Your Watch</a>
+        <a href="#" class="nav-item">Accessories</a>
         <div class="nav-item has-dropdown">
           Watches <span style="font-size: 8px; margin-left: 5px;">▼</span>
-        <div class="dropdown">
-          <a href="#">Rolex</a>
-          <a href="#">Patek Philippe</a>
-          <a href="#">Audemars Piguet</a>
+          <div class="dropdown">
+            <a href="#">Rolex</a>
+            <a href="#">Patek Philippe</a>
+            <a href="#">Audemars Piguet</a>
+          </div>
         </div>
+        <a href="#" class="nav-item">Shipping & Returns</a>
+        <a href="#" class="nav-item">About Us</a>
+        <a href="#" class="nav-item">Contact Us</a>
       </div>
-      <a href="#" class="nav-item">Sell Your Watch</a>
-      <a href="#" class="nav-item">Accessories</a>
-      <a href="#" class="nav-item">Shipping & Returns</a>
-      <a href="#" class="nav-item">About Us</a>
-      <a href="#" class="nav-item">Contact Us</a>
-    </div>
 
     <div class="nav-right">GET A VALUATION</div>
     
@@ -1291,10 +3416,15 @@
         <span></span>
       </div>
     </nav>
+    <div class="progress-bar">
+      <div class="progress-pointer"></div>
+    </div>
   </div>
 
   <!-- Mobile Menu Overlay -->
   <div class="mobile-menu">
+    <a href="#" class="mobile-nav-item">Sell Your Watch</a>
+    <a href="#" class="mobile-nav-item">Accessories</a>
     <div class="mobile-nav-item has-dropdown">
       Watches <span style="font-size: 8px; margin-left: 5px;">▼</span>
       <div class="mobile-dropdown">
@@ -1303,15 +3433,11 @@
         <a href="#">Audemars Piguet</a>
       </div>
     </div>
-    <a href="#" class="mobile-nav-item">Sell Your Watch</a>
-    <a href="#" class="mobile-nav-item">Accessories</a>
     <a href="#" class="mobile-nav-item">Shipping & Returns</a>
     <a href="#" class="mobile-nav-item">About Us</a>
     <a href="#" class="mobile-nav-item">Contact Us</a>
     <a href="#" class="mobile-nav-item btn-mobile-valuation">GET A VALUATION</a>
   </div>
-  
-  <div class="progress-bar"></div>
 
   <!-- Hero Section -->
   <section id="hero" class="hero">
@@ -1387,7 +3513,7 @@
 
   <!-- Trust Badges -->
   <section class="trust-badges-section">
-    <h2>We buy & sell the world’s leading luxury watch brands</h2>
+    <h2>We Buy & Sell The World’s Leading Luxury Watch Brands</h2>
     <div class="trust-badges-grid">
       <img src="images/Trust Badges/Cartier-logo.svg" alt="Cartier">
       <img src="images/Trust Badges/F-P-Journe-logo.svg" alt="F.P. Journe">
@@ -1399,135 +3525,1173 @@
 
   <!-- About Section -->
   <section class="about-section">
-    <div class="about-left">
-      <img src="images/hand-watch-about-image.jpg" alt="Premium Watch on Wrist">
-    </div>
-    <div class="about-right">
-      <h2>Take comfort in selling to a family-run watch exchange</h2>
-      <p class="about-desc">Backed by business owners with strong connections in Europe, you’ll feel confident when dealing with our platform. We specialise in purchasing watches costing between <strong>2,000AED</strong> and <strong>4,000,000AED</strong>. Our experts carefully check each watch to ensure we offer a <strong>fair price</strong>.</p>
-      
-      <ul class="about-list">
-        <li>Backed by a leading European family-run business</li>
-        <li>Our expertise lies in leading watch brands</li>
-        <li>Every watch is carefully checked before we buy it</li>
-        <li>All payments are <strong>100% safe and secure</strong></li>
-        <li>We’ve bought <strong>over 10,000 watches</strong> (and counting!)</li>
-        <li>We are trusted by <strong>high-profile clientele</strong></li>
-      </ul>
+    <div class="about-container">
+      <div class="about-left">
+        <img src="images/about-company.png" alt="Family-Run Watch Exchange">
+      </div>
+      <div class="about-right">
+        <div class="about-eyebrow">About Our Company</div>
+        <h2>Take Comfort In Selling To A Family-Run Watch Exchange</h2>
+        <p class="about-desc">Backed by business owners with strong connections in Europe, you’ll feel confident when dealing with our platform. We specialise in purchasing watches costing between <strong>2,000AED</strong> and <strong>4,000,000AED</strong>. Our experts carefully check each watch to ensure we offer a <strong>fair price</strong>.</p>
+        
+        <ul class="about-list">
+          <li>Backed by a leading European family-run business</li>
+          <li>Our expertise lies in leading watch brands</li>
+          <li>Every watch is carefully checked before we buy it</li>
+          <li>All payments are <strong>100% safe and secure</strong></li>
+          <li>We’ve bought <strong>over 10,000 watches</strong> (and counting!)</li>
+          <li>We are trusted by <strong>high-profile clientele</strong></li>
+        </ul>
 
-      <a href="#" class="btn-gold">Learn more about the company</a>
+        <a href="#" class="btn-gold">Learn more about the company</a>
+      </div>
     </div>
   </section>
 
 
 
-  <!-- Horizontal Rail -->
+  <!-- Horizontal Rail Products Section -->
   <section class="horizontal-rail-container">
     <div class="horizontal-rail">
-      <div class="rail-panel">
-        <video src="videos/watch-v03-exploded-to-reassembled.mp4" autoplay loop muted playsinline></video>
-        <div class="rail-content">Trust built on transparency.</div>
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-img-box">
+          <img src="images/Products/watch-01-product.jpg" alt="Rose Gold Heritage Chronograph, Day-Date">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Rose Gold Heritage Chronograph, Day-Date</h3>
+          <div class="product-price">AED 42,500</div>
+          <div class="product-listing-id">Listing ID: POW-RG-1042</div>
+          <div class="product-action">
+            <a href="#" class="btn-gold">Enquire Now</a>
+          </div>
+        </div>
       </div>
-      <div class="rail-panel">
-        <video src="videos/watch-v04-reassembled-to-wrist.mp4" autoplay loop muted playsinline></video>
-        <div class="rail-content">Meticulous inspection by master horologists.</div>
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-img-box">
+          <img src="images/Products/watch-02-product.jpg" alt="Patek Philippe Perpetual Calendar Moonphase Chronograph">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Patek Philippe Perpetual Calendar Moonphase Chronograph</h3>
+          <div class="product-price">AED 1,850,000</div>
+          <div class="product-listing-id">Listing ID: POW-PP-2078</div>
+          <div class="product-action">
+            <a href="#" class="btn-gold">Enquire Now</a>
+          </div>
+        </div>
       </div>
-      <div class="rail-panel">
-        <video src="videos/watch-v05-wrist-to-entering-office.mp4" autoplay loop muted playsinline></video>
-        <div class="rail-content">Total discretion in every step.</div>
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-img-box">
+          <img src="images/Products/watch-03-product.jpg" alt="Thinking Timepieces Emerald Gold Chronograph">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Thinking Timepieces Emerald Gold Chronograph</h3>
+          <div class="product-price">AED 1,200</div>
+          <div class="product-listing-id">Listing ID: POW-TT-3015</div>
+          <div class="product-action">
+            <a href="#" class="btn-gold">Enquire Now</a>
+          </div>
+        </div>
       </div>
-      <div class="rail-panel">
-        <video src="videos/watch-v06-office-to-meeting-focus.mp4" autoplay loop muted playsinline></video>
-        <div class="rail-content">A transaction as seamless as the timepiece itself.</div>
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-img-box">
+          <img src="images/Products/watch-04-product.jpg" alt="Olevs Onyx Gold-Accent Chronograph">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Olevs Onyx Gold-Accent Chronograph</h3>
+          <div class="product-price">AED 350</div>
+          <div class="product-listing-id">Listing ID: POW-OL-4093</div>
+          <div class="product-action">
+            <a href="#" class="btn-gold">Enquire Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="product-img-box">
+          <img src="images/Products/watch-05-product.jpg" alt="Reward VIP Chronograph, Blue & Rose Gold">
+        </div>
+        <div class="product-details">
+          <h3 class="product-title">Reward VIP Chronograph, Blue & Rose Gold</h3>
+          <div class="product-price">AED 480</div>
+          <div class="product-listing-id">Listing ID: POW-RW-6027</div>
+          <div class="product-action">
+            <a href="#" class="btn-gold">Enquire Now</a>
+          </div>
+        </div>
+      </div>
+      <!-- Shop Now CTA -->
+      <div class="rail-end-cta">
+        <a href="#" class="btn-shop-now">
+          <span class="btn-text">Shop Now</span>
+          <span class="btn-arrow-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Parallax Statement -->
-  <section class="parallax-statement">
-    <div class="parallax-bg" style="background-image: url('images/watch-04-reassembled-hero.jpeg');"></div>
-    <div class="parallax-overlay"></div>
-    <h2 class="parallax-text">Backed by a family business with over 15 years of trust.</h2>
+  <!-- Marquee Section -->
+  <div class="marquee-section-wrapper">
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <!-- Sequence 1 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 2 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 3 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 4 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Us / Effortless Section -->
+  <section class="effortless-section">
+    <div class="effortless-container">
+      
+      <!-- Section Header -->
+      <div class="effortless-header">
+        <div class="effortless-header-left">
+          <div class="effortless-eyebrow">Sell It Your Way</div>
+          <h2 class="effortless-title">Selling Your Watch <br>Should Be This Effortless</h2>
+        </div>
+        <div class="effortless-header-right">
+          <p class="effortless-desc">From quick valuations to secure payments, we make every step smooth, transparent, and worry-free.</p>
+          <div class="effortless-bar"></div>
+        </div>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="effortless-grid">
+        
+        <!-- Column 1 -->
+        <div class="bento-col bento-col-left">
+          <!-- Valuation Card -->
+          <div class="bento-card valuation-card">
+            <div>
+              <div class="bento-badge-row">
+                <div class="bento-badge">
+                  <!-- Compass / Target SVG -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                  </svg>
+                </div>
+                <span class="bento-badge-label">Valuation</span>
+              </div>
+              <h3 class="bento-h3">Instant, accurate <br>offers</h3>
+              <p class="bento-p">Get a fair market offer in minutes.<br>No obligations, just honest pricing.</p>
+            </div>
+            
+            <div class="valuation-icons-row">
+              <div class="v-icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>Fast</span>
+              </div>
+              <div class="v-icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                <span>Secure</span>
+              </div>
+              <div class="v-icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Private</span>
+              </div>
+              <div class="v-icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>Reliable</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Row -->
+          <div class="bento-split-row">
+            <div class="bento-card mini-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+              <h4>Fully Insured</h4>
+              <p>Your watch is protected<br>at every step.</p>
+            </div>
+            <div class="bento-card mini-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              <h4>Same-Day Payment</h4>
+              <p>Get paid securely,<br>the same day.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2 (Tall Watch Photo) -->
+        <div class="bento-col bento-col-center">
+          <div class="bento-card tall-image-card">
+            <img src="images/whychoose-01-image.png" alt="Luxury Audemars Piguet Watch" class="bento-full-img">
+          </div>
+        </div>
+
+        <!-- Column 3 (Collection Card) -->
+        <div class="bento-col bento-col-right">
+          <div class="bento-card collection-card">
+            <div class="collection-top-content">
+              <div class="bento-badge-row">
+                <div class="bento-badge">
+                  <!-- Watch / Crown SVG -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="7"></circle>
+                    <polyline points="12 9 12 12 14 14"></polyline>
+                    <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83"></path>
+                    <path d="M7.49 6.65l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path>
+                  </svg>
+                </div>
+                <span class="bento-badge-label">Collection</span>
+              </div>
+              <h3 class="bento-h3">All watches.<br>All brands.</h3>
+              <p class="bento-p">From timeless classics to modern<br>icons, we buy what you love.</p>
+            </div>
+            <div class="collection-img-wrapper">
+              <img src="images/whychoose-02-image.png" alt="Luxury Watch Profile" class="collection-bot-img">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Banner Strip -->
+      <div class="effortless-footer-strip">
+        <div class="strip-item-main">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Trusted by collectors worldwide</span>
+        </div>
+        <div class="strip-item">10,000+ watches purchased</div>
+        <div class="strip-item">5-Star client satisfaction</div>
+        <div class="strip-item">Experts you can rely on</div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- Selling Process -->
-  <section class="selling-process">
-    <div class="process-col col-up">
-      <div class="col-bg" style="background-image: url('images/watch-02-rotate-left.jpeg');"></div>
-      <div class="col-content">
-        <div class="step-num">01</div>
-        <h3>Fill in our valuation form.</h3>
-        <p>Complete our free valuation form: brand, model, age, condition, box and papers, images if available, and your contact details. We respond within the hour.</p>
+  <!-- Our Simple Process Section -->
+  <section class="simple-process-section">
+    <div class="simple-process-container">
+      
+      <!-- Left Panel: Steps Timeline -->
+      <div class="process-panel-left">
+        <h2 class="process-heading">Our <br>Simple Process</h2>
+        
+        <div class="process-timeline">
+          <div class="process-step-item">
+            <div class="step-badge-col">
+              <div class="step-circle">01</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="step-info">
+              <h4>Instant Online Valuation</h4>
+              <p>Complete our simple valuation form with your watch details and get a guaranteed quote within the hour.</p>
+            </div>
+          </div>
+
+          <div class="process-step-item">
+            <div class="step-badge-col">
+              <div class="step-circle">02</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="step-info">
+              <h4>Expert Inspection</h4>
+              <p>Visit our luxury boutique or schedule an insured, secure collection for an in-house horological check.</p>
+            </div>
+          </div>
+
+          <div class="process-step-item">
+            <div class="step-badge-col">
+              <div class="step-circle">03</div>
+              <div class="step-connector"></div>
+            </div>
+            <div class="step-info">
+              <h4>Refine & Approve</h4>
+              <p>Our master horologists verify authenticity and present a highly competitive, market-leading final offer.</p>
+            </div>
+          </div>
+
+          <div class="process-step-item">
+            <div class="step-badge-col">
+              <div class="step-circle">04</div>
+            </div>
+            <div class="step-info">
+              <h4>Same-Day Payment</h4>
+              <p>Upon your approval, receive immediate payment via direct wire within 60 minutes, or part-exchange.</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="process-col col-down">
-      <div class="col-bg" style="background-image: url('images/watch-06-entering-office.jpeg');"></div>
-      <div class="col-content">
-        <div class="step-num">02</div>
-        <h3>Visit our branch.</h3>
-        <p>Meet us at our headquarters or your preferred location for a thorough, expert inspection.</p>
+
+      <!-- Center Column: Majestic Watch Asset with Horological SVG Background -->
+      <div class="process-watch-col">
+        <!-- Floating Horological Tachymeter Dial Background -->
+        <svg viewBox="0 0 600 600" class="process-watch-bg-circle">
+          <defs>
+            <linearGradient id="themeGoldCircle" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f5d38a" />
+              <stop offset="50%" stop-color="#dfb45e" />
+              <stop offset="100%" stop-color="#ba8a31" />
+            </linearGradient>
+          </defs>
+          <!-- Main Gold Background Plate -->
+          <circle cx="300" cy="300" r="280" fill="url(#themeGoldCircle)" stroke="#000000" stroke-width="2.5" opacity="0.95" />
+          <!-- Inner Black Ring -->
+          <circle cx="300" cy="300" r="195" fill="none" stroke="#000000" stroke-width="1.8" opacity="0.8" />
+          <g id="tachymeter-ticks"></g>
+        </svg>
+        <img src="images/step-section-image.png" alt="Luxury Watch Simple Process" class="process-center-img">
       </div>
-    </div>
-    <div class="process-col col-up">
-      <div class="col-bg" style="background-image: url('images/watch-05-on-wrist-businessman.jpeg');"></div>
-      <div class="col-content">
-        <div class="step-num">03</div>
-        <h3>Final offer & same-day payment.</h3>
-        <p>Accept our offer and get paid within 60 minutes — or part-exchange for another timepiece.</p>
+
+      <!-- Right Panel: Feature Badges -->
+      <div class="process-panel-right">
+        <div class="process-feature-card">
+          <div class="feature-icon-circle">
+            <!-- Eye SVG -->
+            <svg viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h4>Transparent Valuation</h4>
+            <p>Graded with precision to reflect current real-time global collector market prices.</p>
+          </div>
+        </div>
+
+        <div class="process-feature-card">
+          <div class="feature-icon-circle">
+            <!-- Display / Monitor SVG -->
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h4>Effortless Experience</h4>
+            <p>Private, fast, and entirely tailored around your personal schedule and preferred location.</p>
+          </div>
+        </div>
+
+        <div class="process-feature-card">
+          <div class="feature-icon-circle">
+            <!-- Shield Security SVG -->
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h4>Secure & Insured</h4>
+            <p>Enterprise-grade logistics and comprehensive insurance protecting your prized timepieces.</p>
+          </div>
+        </div>
+
+        <div class="process-feature-card">
+          <div class="feature-icon-circle">
+            <!-- Growth / Chart SVG -->
+            <svg viewBox="0 0 24 24">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <div class="feature-info">
+            <h4>Unrivalled Returns</h4>
+            <p>Direct access to over 150+ international watch specialists ensuring you get top valuation.</p>
+          </div>
+        </div>
       </div>
+
     </div>
+  </section>
+
+  <!-- Shop Promo Video Section -->
+  <section class="shop-promo-section">
+    <div class="shop-promo-wrapper">
+      <video data-src="videos/shop-promo-video.mp4" muted playsinline loop preload="none" class="shop-promo-video"></video>
+    </div>
+    <div class="shop-promo-top-gradient"></div>
+    <div class="shop-promo-bottom-gradient"></div>
+    <div class="shop-promo-tint-overlay"></div>
   </section>
 
   <!-- Guarantees Grid -->
   <section class="guarantees">
-    <div class="guarantees-visual">
-      <img src="images/watch-07-meeting-focus-watch.jpeg" alt="Watch Meeting">
-    </div>
-    <div class="guarantees-content">
-      <div class="guarantee-card">
-        <h4>SAME-DAY MONEY</h4>
-        <p>Same-day payment once a final offer is agreed.</p>
-      </div>
-      <div class="guarantee-card">
-        <h4>EXPERT INSPECTIONS</h4>
-        <p>15+ years of in-house inspection experience.</p>
-      </div>
-      <div class="guarantee-card">
-        <h4>FAIR EXCHANGE</h4>
-        <p>Accept our offer or go to auction, bid on by 150+ watch specialists.</p>
+    <div class="guarantees-container">
+      <div class="guarantees-content">
+        <div class="guarantee-card">
+          <h4>SAME-DAY MONEY</h4>
+          <p>Same-day payment once a final offer is agreed.</p>
+        </div>
+        <div class="guarantee-card">
+          <h4>EXPERT INSPECTIONS</h4>
+          <p>15+ years of in-house inspection experience.</p>
+        </div>
+        <div class="guarantee-card">
+          <h4>FAIR EXCHANGE</h4>
+          <p>Accept our offer or go to auction, bid on by 150+ watch specialists.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
+  <!-- About Summary Section -->
+  <section class="about-summary-section">
     <div class="about-bg" style="background-image: url('images/watch-01-front-hero.jpeg');"></div>
     <div class="about-overlay"></div>
     <div class="about-content">
-      <p>Pre-Owned Watches UAE — a family-run business with over 15 years of experience buying luxury watches for competitive prices. Direct transactions, no middlemen, same-day bank transfers. We also offer an online auction option for wider reach.</p>
+      <img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="about-summary-logo">
+      <p id="about-summary-text">Pre-Owned Watches UAE — a family-run business with over 15 years of experience buying luxury watches for competitive prices. Direct transactions, no middlemen, same-day bank transfers. We also offer an online auction option for wider reach.</p>
+      
+      <!-- Trusted Customers Compact Badge -->
+      <div class="trusted-customers-badge">
+        <div class="trusted-avatars-col">
+          <img src="images/client-bagde-round-images.png" alt="Trusted Customers">
+        </div>
+        <div class="trusted-info-col">
+          <span class="trusted-text">Trusted Customers</span>
+          <div class="trusted-stars">★ ★ ★ ★ ★</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Valuation Form Section -->
-  <section class="valuation-section">
-    <div class="valuation-bg" style="background-image: url('images/watch-05-on-wrist-businessman.jpeg');"></div>
-    <div class="valuation-overlay"></div>
-    <div class="valuation-content">
-      <h2>GET A VALUATION</h2>
-      <form class="valuation-form" onsubmit="event.preventDefault();">
-        <input type="text" placeholder="Brand" required>
-        <input type="text" placeholder="Model" required>
-        <input type="text" placeholder="Age / Condition" required>
-        <select required>
-          <option value="" disabled selected>Box & Papers?</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-        <input type="email" placeholder="Contact Email" required>
-        <input type="tel" placeholder="Contact Phone" required>
-        <input type="file" accept="image/*" title="Optional Image Upload">
-        <button type="submit">Submit Request</button>
-      </form>
+  <!-- Client Reviews Marquee Section -->
+  <section class="reviews-section">
+    <div class="reviews-header">
+      <h2>What Our Clients Are Saying</h2>
+      <p>Don't just take our word for it—discover why discerning watch collectors across the UAE and globally trust us with their prized timepieces.</p>
+    </div>
+    <div class="reviews-marquee-container">
+      
+      <!-- Top Row: Scrolls Left -->
+      <div class="reviews-track track-left">
+        <!-- Loop 1 -->
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Sold my Rolex Daytona here and received an unbeatable offer within the hour. No endless negotiations or middlemen—the money was wired to my account before I even left their luxury boutique."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 20.png" alt="Alexander Vance" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Alexander Vance</span>
+              <span class="author-location">Dubai Marina, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Their horological knowledge is unmatched. I brought in an audited Patek Philippe Nautilus, and their inspection team handled it with supreme reverence. Absolute top-tier valuation and same-day payment."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 21.png" alt="Tariq Al-Mansoor" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Tariq Al-Mansoor</span>
+              <span class="author-location">Abu Dhabi, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"I opted for their online auction option for my Audemars Piguet Royal Oak. Having over 150 international specialists bidding drove the final return well past my initial expectations. Phenomenal service!"</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 22.png" alt="Elena Rostova" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Elena Rostova</span>
+              <span class="author-location">Downtown Dubai, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Even travelling from overseas, their tailored insured collection service made selling my A. Lange & Söhne completely effortless. Discreet, immediate, and utterly reliable from start to finish."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 23.png" alt="Marcus Sterling" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Marcus Sterling</span>
+              <span class="author-location">London, UK</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"A truly refined experience. They value time as much as the timepieces themselves. The direct transaction model eliminated all traditional friction—same-day bank transfer without fail."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 24.png" alt="Rashid Al-Maktoum" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Rashid Al-Maktoum</span>
+              <span class="author-location">Palm Jumeirah, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loop 2 (Duplicated for Seamless Infinite Marquee) -->
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Sold my Rolex Daytona here and received an unbeatable offer within the hour. No endless negotiations or middlemen—the money was wired to my account before I even left their luxury boutique."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 20.png" alt="Alexander Vance" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Alexander Vance</span>
+              <span class="author-location">Dubai Marina, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Their horological knowledge is unmatched. I brought in an audited Patek Philippe Nautilus, and their inspection team handled it with supreme reverence. Absolute top-tier valuation and same-day payment."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 21.png" alt="Tariq Al-Mansoor" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Tariq Al-Mansoor</span>
+              <span class="author-location">Abu Dhabi, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"I opted for their online auction option for my Audemars Piguet Royal Oak. Having over 150 international specialists bidding drove the final return well past my initial expectations. Phenomenal service!"</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 22.png" alt="Elena Rostova" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Elena Rostova</span>
+              <span class="author-location">Downtown Dubai, UAE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Even travelling from overseas, their tailored insured collection service made selling my A. Lange & Söhne completely effortless. Discreet, immediate, and utterly reliable from start to finish."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 23.png" alt="Marcus Sterling" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Marcus Sterling</span>
+              <span class="author-location">London, UK</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"A truly refined experience. They value time as much as the timepieces themselves. The direct transaction model eliminated all traditional friction—same-day bank transfer without fail."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 24.png" alt="Rashid Al-Maktoum" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Rashid Al-Maktoum</span>
+              <span class="author-location">Palm Jumeirah, UAE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Scrolls Right -->
+      <div class="reviews-track track-right">
+        <!-- Loop 1 -->
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"As a long-time collector, finding a trusted partner in the UAE was vital. Their valuation reflected true global collector market pricing rather than standard dealer discounts. Highly recommended!"</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 25.png" alt="Chloe Sinclair" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Chloe Sinclair</span>
+              <span class="author-location">Geneva, Switzerland</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Flawless execution. I exchanged two vintage Cartier timepieces for an immediate wire transfer. Their 15 years of family-run expertise shines through in every interaction."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 26.png" alt="Faisal Al-Hashemi" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Faisal Al-Hashemi</span>
+              <span class="author-location">Riyadh, Saudi Arabia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"The level of security and enterprise-grade logistics provided during my watch inspection gave me total peace of mind. They set the benchmark for luxury watch transactions worldwide."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 27.png" alt="David K. Thorne" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">David K. Thorne</span>
+              <span class="author-location">New York, USA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"No waiting weeks for consignment payouts. I agreed to their offer on my Richard Mille at noon, and the funds were cleared in my account by 1 PM. Exceedingly professional team."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 28.png" alt="Noor Al-Suwaidi" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Noor Al-Suwaidi</span>
+              <span class="author-location">DIFC, Dubai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"The direct transaction model and immediate bank wire made parting with my vintage Submariner completely stress-free. Courteous, transparent, and discreet throughout."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 21.png" alt="Hamza Al-Mulla" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Hamza Al-Mulla</span>
+              <span class="author-location">Doha, Qatar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loop 2 (Duplicated for Seamless Infinite Marquee) -->
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"As a long-time collector, finding a trusted partner in the UAE was vital. Their valuation reflected true global collector market pricing rather than standard dealer discounts. Highly recommended!"</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 25.png" alt="Chloe Sinclair" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Chloe Sinclair</span>
+              <span class="author-location">Geneva, Switzerland</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"Flawless execution. I exchanged two vintage Cartier timepieces for an immediate wire transfer. Their 15 years of family-run expertise shines through in every interaction."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 26.png" alt="Faisal Al-Hashemi" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Faisal Al-Hashemi</span>
+              <span class="author-location">Riyadh, Saudi Arabia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"The level of security and enterprise-grade logistics provided during my watch inspection gave me total peace of mind. They set the benchmark for luxury watch transactions worldwide."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 27.png" alt="David K. Thorne" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">David K. Thorne</span>
+              <span class="author-location">New York, USA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"No waiting weeks for consignment payouts. I agreed to their offer on my Richard Mille at noon, and the funds were cleared in my account by 1 PM. Exceedingly professional team."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 28.png" alt="Noor Al-Suwaidi" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Noor Al-Suwaidi</span>
+              <span class="author-location">DIFC, Dubai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-rating-stars">★ ★ ★ ★ ★</div>
+            <p class="review-body">"The direct transaction model and immediate bank wire made parting with my vintage Submariner completely stress-free. Courteous, transparent, and discreet throughout."</p>
+          </div>
+          <div class="review-author">
+            <img src="images/Review Profile Images/Ellipse 21.png" alt="Hamza Al-Mulla" class="author-avatar">
+            <div class="author-info">
+              <span class="author-name">Hamza Al-Mulla</span>
+              <span class="author-location">Doha, Qatar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Categories Grid Section -->
+  <section class="categories-section">
+    <div class="categories-container">
+      <div class="categories-header">
+        <h2>Explore Our Core Collections</h2>
+        <p>From grand complications and sports chronographs to limited regional editions and collector sets, discover our specialized categories.</p>
+      </div>
+      <div class="categories-grid">
+        
+        <!-- Left Tall Master Card -->
+        <a href="#process" class="category-card cat-card-tall">
+          <img src="images/cat-04-image.jpg" alt="Limited Editions & Exclusives" class="category-img">
+          <div class="category-overlay"></div>
+          <div class="category-title-wrap">
+            <h3 class="category-title">Limited Editions & Exclusives</h3>
+            <div class="category-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Top Left Small Card -->
+        <a href="#process" class="category-card cat-card-top-left">
+          <img src="images/cat-03-image.webp" alt="Grand Complications" class="category-img">
+          <div class="category-overlay"></div>
+          <div class="category-title-wrap">
+            <h3 class="category-title">Grand Complications</h3>
+            <div class="category-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Top Right Small Card -->
+        <a href="#process" class="category-card cat-card-top-right">
+          <img src="images/cat-02-image.webp" alt="Sport Chronographs" class="category-img">
+          <div class="category-overlay"></div>
+          <div class="category-title-wrap">
+            <h3 class="category-title">Sport Chronographs</h3>
+            <div class="category-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Bottom Wide Card -->
+        <a href="#process" class="category-card cat-card-wide">
+          <img src="images/cat-01-image.webp" alt="Collector Sets & Vaults" class="category-img">
+          <div class="category-overlay"></div>
+          <div class="category-title-wrap">
+            <h3 class="category-title">Collector Sets & Vaults</h3>
+            <div class="category-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Section -->
+  <div class="marquee-section-wrapper" style="margin-top: 60px; margin-bottom: 2rem;">
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <!-- Sequence 1 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 2 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 3 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+        <!-- Sequence 4 -->
+        <div class="marquee-item">
+          <span>TRUSTED IN EUROPE · 15+ YEARS EXPERTISE · SAME-DAY PAYMENT</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+          <span>10,000+ WATCHES BOUGHT · EXPERT INSPECTION · 100% SECURE</span>
+          <span class="marquee-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blogs Showcase Section -->
+  <section class="blogs-section">
+    <div class="blogs-container">
+      
+      <!-- Top Row: Editorial Title & Description -->
+      <div class="blogs-header">
+        <h2 class="blogs-title">The Horological Gazette &amp; Market Insights</h2>
+        <p class="blogs-description">Expert valuation guides, horological trends, and live collection reports from the premier watch acquisition specialists in the UAE.</p>
+      </div>
+
+      <!-- Middle Row: Horizontal Sliding Track (6 Articles) -->
+      <div class="blogs-slider-wrapper">
+        <div class="blogs-track" id="blogs-track">
+          
+          <!-- Article 1 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/watch-05-on-wrist-businessman.jpeg.png" alt="Rolex vs Patek Philippe Valuation" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Market Analysis · 6 min read</span>
+              <h3 class="blog-heading">The 2026 GCC Valuation Guide: Rolex Daytona vs. Patek Philippe Nautilus</h3>
+            </div>
+          </a>
+
+          <!-- Article 2 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/watch-07-meeting-focus-watch.jpeg.png" alt="Same-Day Bank Transfers in Dubai" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Seller Guides · 4 min read</span>
+              <h3 class="blog-heading">Why Direct Instant Wire Payouts Are Replacing Consignment in Dubai</h3>
+            </div>
+          </a>
+
+          <!-- Article 3 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/watch-06-entering-office.jpeg.png" alt="Vintage Complications Inspection" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Horological Expertise · 7 min read</span>
+              <h3 class="blog-heading">Investing in Grand Complications: What Specialists Look For During Appraisal</h3>
+            </div>
+          </a>
+
+          <!-- Article 4 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/watch-lady-04-on-wrist-garden.jpeg.png" alt="Women Collectors in the GCC" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Lifestyle &amp; Trends · 5 min read</span>
+              <h3 class="blog-heading">The Rise of Haute Horology Among Discerning Women Collectors in the GCC</h3>
+            </div>
+          </a>
+
+          <!-- Article 5 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/whychoose-01-image.png" alt="Box & Papers Value Impact" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Valuation Insights · 5 min read</span>
+              <h3 class="blog-heading">Understanding Provenance: How Complete Box &amp; Papers Impact Timepiece Value</h3>
+            </div>
+          </a>
+
+          <!-- Article 6 -->
+          <a href="#" class="blog-card" onclick="event.preventDefault();">
+            <img src="images/watch-03-exploded-disassembled.jpeg.png" alt="Inside Master Workshop Calibre Inspection" class="blog-img">
+            <div class="blog-overlay"></div>
+            <div class="blog-content">
+              <span class="blog-meta">Technical &amp; Craft · 8 min read</span>
+              <h3 class="blog-heading">Inside the Master Workshop: Secrets of High-Precision Calibre Inspection</h3>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Bottom Row: See All Blogs Button & Navigation Arrows -->
+      <div class="blogs-footer-bar">
+        <a href="#" class="see-all-blogs-btn" onclick="event.preventDefault();">
+          <span>See all blogs</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <div class="blogs-nav-buttons">
+          <button class="blog-nav-btn" id="blog-prev" aria-label="Previous Blogs">
+            <svg viewBox="0 0 24 24">
+              <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"/>
+            </svg>
+          </button>
+          <button class="blog-nav-btn" id="blog-next" aria-label="Next Blogs">
+            <svg viewBox="0 0 24 24">
+              <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-container">
+      
+      <!-- Left Column: Sticky Editorial Sidebar -->
+      <div class="faq-sidebar">
+        <span class="faq-tag">Clarity &amp; Confidence</span>
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <p class="faq-subtitle">Everything you need to know about our luxury timepiece valuations, immediate wire transfers, and confidential acquisition protocols across the Middle East &amp; Europe.</p>
+        
+        <div class="faq-contact-box">
+          <h4>Have a Rare Complication?</h4>
+          <p>Connect directly with our Senior Horologists for a private, bespoke appraisal consultation.</p>
+          <a href="#process" class="faq-contact-btn">
+            <span>Request Bespoke Appraisal</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Accordion List (6 FAQs) -->
+      <div class="faq-list">
+        
+        <!-- FAQ Item 1 (Default Active/Open) -->
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>How does the instant valuation and same-day payment process work?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer" style="max-height: 250px;">
+            <div class="faq-answer-inner">
+              Once you submit your timepiece's details online, our Senior Horologists provide an initial valuation estimate within <strong>2 hours</strong>. Upon a swift, private in-person inspection at our secure VIP boutique in Dubai or via our insured concierge pickup across the UAE, we initiate an immediate direct bank transfer or wire payout before we part ways.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Which luxury watch brands and complications do you specialize in acquiring?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We primarily acquire haute horology pieces and high-demand collections from <strong>Rolex, Patek Philippe, Audemars Piguet, Richard Mille, Vacheron Constantin, A. Lange &amp; Söhne, and Cartier</strong>. We specialize in sports chronographs, grand complications, rare Middle East regional limited editions, and historically significant vintage timepieces.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What if I have misplaced the original box, warranty papers, or certificate?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              While complete box and papers naturally enhance collectible valuation, we actively acquire standalone timepieces. Our master watchmakers and diagnostic specialists authenticate every Calibre utilizing non-invasive spectroscopy and historical reference archive verification to present you with the premier market offer.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is the valuation consultation completely free and confidential?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <strong>Absolutely.</strong> All appraisals, valuations, and consultations are conducted under strict confidentiality agreements and carry zero financial obligation. Your identity, personal collection details, and banking transactions are safeguarded with private banking-grade discretion at all times.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I request a VIP home or executive office appraisal anywhere in the GCC?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <strong>Yes.</strong> For discerning collectors and high-value private collections in Dubai, Abu Dhabi, Doha, Riyadh, and throughout the GCC, our Senior Appraisal Concierge provides tailored VIP visits directly to your private residence, corporate suite, or secure bank vault.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Why sell directly to Pre-Owned Watches UAE over traditional brokers or consignment platforms?</span>
+            <span class="faq-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Traditional consignment requires months of uncertain waiting, public exposure of your valued asset, and heavy broker commissions. As direct capital acquirers with over <strong>15 years of European and UAE market leadership</strong>, we eliminate intermediaries entirely—offering guaranteed, immediate same-day liquidity with unmatched peace of mind.
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -1536,6 +4700,14 @@
     <a href="/"><img src="images/main-hero-logo.png" alt="Pre-Owned Watches UAE" class="logo" style="margin-bottom: 2rem;"></a>
     <p>&copy; 2026 PRE-OWNED WATCHES UAE. All rights reserved.</p>
   </footer>
+
+  <!-- Floating Go Top Button -->
+  <button id="go-top-btn" class="go-top-btn" aria-label="Scroll to top" title="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
 
   <script>
     gsap.registerPlugin(ScrollTrigger);
@@ -1733,9 +4905,6 @@
       onUpdate: (self) => {
         const progress = self.progress;
         const activeCount = sequences[activeSequenceKey].count;
-        
-        // Progress bar logic
-        gsap.set(".progress-bar", { height: `${progress * 100}vh` });
 
         // Frame update (finishes at 85% of scroll)
         let frameProgress = Math.min(progress, 0.85) / 0.85;
@@ -1820,52 +4989,288 @@
       onLeaveBack: () => document.querySelector(".main-nav").classList.remove("nav-scrolled")
     });
 
+    // --- Smart Top Bar Hide/Show on Scroll ---
+    let lastScrollPosition = window.scrollY;
+    let scrollTicking = false;
+
+    window.addEventListener("scroll", () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollPosition = window.scrollY;
+          const heroSection = document.querySelector(".hero");
+          const headerWrapper = document.querySelector(".header-wrapper");
+          const topBar = document.querySelector(".top-bar");
+
+          if (heroSection && headerWrapper && topBar) {
+            const heroEndPosition = heroSection.offsetTop + heroSection.offsetHeight - window.innerHeight;
+            const topBarHeight = topBar.offsetHeight;
+
+            // Only act after the hero section scroll sequence has finished
+            if (currentScrollPosition > Math.max(heroEndPosition, 150)) {
+              if (currentScrollPosition > lastScrollPosition + 5) {
+                // Scrolling DOWN: hide top bar upwards while main navigation moves smoothly up to top: 0
+                headerWrapper.style.transform = `translateY(-${topBarHeight}px)`;
+              } else if (currentScrollPosition < lastScrollPosition - 5) {
+                // Scrolling UP: slide top bar back down into view from top to bottom
+                headerWrapper.style.transform = "translateY(0px)";
+              }
+            } else {
+              // Within hero section: always remain fully visible at top: 0
+              headerWrapper.style.transform = "translateY(0px)";
+            }
+          }
+          lastScrollPosition = currentScrollPosition;
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
     // --- Horizontal Rail ---
-    gsap.to(".horizontal-rail", {
-      xPercent: -75,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".horizontal-rail-container",
-        pin: true,
-        scrub: 1,
-        start: "top top",
-        end: "+=3000"
-      }
-    });
+    const horizontalRail = document.querySelector(".horizontal-rail");
+    if (horizontalRail) {
+      gsap.to(".horizontal-rail", {
+        x: () => -(horizontalRail.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".horizontal-rail-container",
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => "+=" + (horizontalRail.scrollWidth - window.innerWidth + 1000),
+          invalidateOnRefresh: true
+        }
+      });
+    }
 
-    // --- Parallax Statement ---
-    gsap.to(".parallax-bg", {
-      yPercent: 20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".parallax-statement",
-        scrub: true,
-        start: "top bottom",
-        end: "bottom top"
-      }
-    });
+    // --- Marquee Section Entrance Animation ---
+    const marqueeSection = document.querySelector(".marquee-section");
+    if (marqueeSection) {
+      gsap.from(".marquee-section", {
+        xPercent: 100,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".marquee-section-wrapper",
+          start: "top bottom",
+          end: "top 65%",
+          scrub: 1
+        }
+      });
+    }
 
-    // --- Selling Process Parallax ---
-    gsap.to(".col-up .col-bg", {
-      yPercent: -20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".selling-process",
-        scrub: true,
-        start: "top bottom",
-        end: "bottom top"
+    // --- Effortless Bento Section Animations ---
+    if (document.querySelector(".effortless-section")) {
+      gsap.from(".effortless-header", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".effortless-section",
+          start: "top 80%"
+        }
+      });
+      gsap.from(".bento-card", {
+        y: 50,
+        opacity: 0,
+        duration: 1.1,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".effortless-grid",
+          start: "top 82%"
+        }
+      });
+      gsap.from(".effortless-footer-strip", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".effortless-footer-strip",
+          start: "top 90%"
+        }
+      });
+    }
+
+    // --- Advanced Shop Promo Video Lazy-Load & Optimization ---
+    const promoVideo = document.querySelector(".shop-promo-video");
+    if (promoVideo && 'IntersectionObserver' in window) {
+      const videoLoadObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (promoVideo.dataset.src) {
+              promoVideo.src = promoVideo.dataset.src;
+              promoVideo.load();
+            }
+            observer.disconnect();
+          }
+        });
+      }, { rootMargin: '400px 0px' });
+      videoLoadObserver.observe(promoVideo);
+
+      const videoPlayObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const playPromise = promoVideo.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
+          } else {
+            promoVideo.pause();
+          }
+        });
+      }, { threshold: 0.05 });
+      videoPlayObserver.observe(promoVideo);
+    }
+
+    // --- Shop Promo Video GSAP Parallax ---
+    if (document.querySelector(".shop-promo-section")) {
+      gsap.fromTo(".shop-promo-wrapper", 
+        { yPercent: -10, scale: 1.08 },
+        {
+          yPercent: 10,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".shop-promo-section",
+            scrub: true,
+            start: "top bottom",
+            end: "bottom top"
+          }
+        }
+      );
+    }
+
+    // --- Generate Horological Tachymeter Radial Ticks for Simple Process SVG ---
+    const ticksContainer = document.getElementById("tachymeter-ticks");
+    if (ticksContainer) {
+      let ticksHTML = "";
+      for (let i = 0; i < 360; i += 5) {
+        const isMajor = (i % 30 === 0);
+        const y1 = isMajor ? 34 : 44;
+        const y2 = isMajor ? 96 : 86;
+        const strokeWidth = isMajor ? "2" : "1.2";
+        const opacity = isMajor ? "0.95" : "0.75";
+        ticksHTML += `<line x1="300" y1="${y1}" x2="300" y2="${y2}" stroke="#000000" stroke-width="${strokeWidth}" stroke-linecap="round" opacity="${opacity}" transform="rotate(${i} 300 300)" />`;
       }
-    });
-    gsap.to(".col-down .col-bg", {
-      yPercent: 20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".selling-process",
-        scrub: true,
-        start: "top bottom",
-        end: "bottom top"
-      }
-    });
+      ticksContainer.innerHTML = ticksHTML;
+    }
+
+    // --- Simple Process Section Animations ---
+    const processSection = document.querySelector(".simple-process-section");
+    if (processSection) {
+      gsap.from(".process-panel-left", {
+        x: -50,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".simple-process-section",
+          start: "top 78%"
+        }
+      });
+      gsap.from(".process-panel-right", {
+        x: 50,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".simple-process-section",
+          start: "top 78%"
+        }
+      });
+      gsap.from(".process-watch-bg-circle", {
+        scale: 0.5,
+        opacity: 0,
+        duration: 1.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".simple-process-section",
+          start: "top 78%"
+        }
+      });
+      gsap.from(".process-center-img", {
+        scale: 0.82,
+        opacity: 0,
+        duration: 1.4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".simple-process-section",
+          start: "top 78%"
+        }
+      });
+    }
+
+    // --- Guarantees Section Animations ---
+    const guaranteesSection = document.querySelector(".guarantees");
+    if (guaranteesSection) {
+      gsap.from(".guarantee-card", {
+        x: 40,
+        opacity: 0,
+        duration: 1.0,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".guarantees-container",
+          start: "top 78%"
+        }
+      });
+    }
+
+    // --- About Summary Word-by-Word Scroll Reveal Effect ---
+    const summaryTextEl = document.getElementById("about-summary-text");
+    if (summaryTextEl) {
+      const words = summaryTextEl.innerText.split(" ");
+      summaryTextEl.innerHTML = words.map(word => `<span class="scroll-word" style="opacity: 0.2;">${word.trim()}</span>`).join(" ");
+      
+      const revealTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".about-summary-section",
+          start: "top top",
+          end: "+=80%",
+          pin: true,
+          scrub: 0.5,
+          anticipatePin: 1
+        }
+      });
+
+      revealTl.to(".scroll-word", {
+        opacity: 1,
+        color: "#ffffff",
+        stagger: 0.1,
+        duration: 2,
+        ease: "none"
+      })
+      .to({}, { duration: 1.2 }); // Hold section still after words reach 100% opacity so user can comfortably read before scrolling down
+      
+      gsap.from(".trusted-customers-badge", {
+        y: 20,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".about-summary-section",
+          start: "top 60%"
+        }
+      });
+    }
+
+    // --- Categories Grid GSAP Animation ---
+    const categoriesSection = document.querySelector(".categories-section");
+    if (categoriesSection) {
+      gsap.from(".category-card", {
+        y: 50,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".categories-grid",
+          start: "top 78%"
+        }
+      });
+    }
 
     // --- Lenis Smooth Scroll Initialization ---
     const lenis = new Lenis({
@@ -1906,6 +5311,114 @@
         mobileDropdown.classList.toggle('active');
       }
     });
+
+    // --- Blogs Carousel Navigation ---
+    const blogsTrack = document.getElementById("blogs-track");
+    const blogPrevBtn = document.getElementById("blog-prev");
+    const blogNextBtn = document.getElementById("blog-next");
+
+    if (blogsTrack && blogPrevBtn && blogNextBtn) {
+      const getScrollStep = () => {
+        const card = blogsTrack.querySelector(".blog-card");
+        return (card ? card.offsetWidth : 320) + 24; // Card width + 24px gap
+      };
+      blogPrevBtn.addEventListener("click", () => {
+        blogsTrack.scrollBy({ left: -getScrollStep(), behavior: "smooth" });
+      });
+      blogNextBtn.addEventListener("click", () => {
+        blogsTrack.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+      });
+    }
+
+    // --- FAQ Accordion Logic ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close other accordions smoothly for clean luxury presentation
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+          }
+        });
+
+        if (isActive) {
+          item.classList.remove('active');
+          answer.style.maxHeight = '0px';
+        } else {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // --- FAQ GSAP Staggered Scroll Animation ---
+    if (faqItems.length > 0) {
+      gsap.from(".faq-sidebar", {
+        scrollTrigger: {
+          trigger: ".faq-section",
+          start: "top 80%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+
+      gsap.from(".faq-item", {
+        scrollTrigger: {
+          trigger: ".faq-list",
+          start: "top 85%",
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15, // Smooth one-by-one waterfall emergence
+        ease: "power3.out",
+        clearProps: "all"
+      });
+    }
+
+    // --- Floating Go Top Button Logic ---
+    const goTopBtn = document.getElementById("go-top-btn");
+    if (goTopBtn) {
+      window.addEventListener("scroll", () => {
+        const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalScrollableHeight > 0 && window.scrollY >= totalScrollableHeight * 0.5) {
+          goTopBtn.classList.add("visible");
+        } else {
+          goTopBtn.classList.remove("visible");
+        }
+      }, { passive: true });
+
+      goTopBtn.addEventListener("click", () => {
+        if (typeof lenis !== "undefined" && lenis.scrollTo) {
+          lenis.scrollTo(0, { duration: 1.5, ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    }
+
+    // --- Full Website Shooting Star Scroll Progress Bar ---
+    const progressBar = document.querySelector(".progress-bar");
+    if (progressBar) {
+      const updateProgress = () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+          const scrolled = (window.scrollY / docHeight) * 100;
+          const safeWidth = Math.min(100, Math.max(0, scrolled));
+          progressBar.style.width = `${safeWidth}%`;
+        }
+      };
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress, { passive: true });
+      updateProgress();
+    }
 
     // Refresh ScrollTrigger to ensure all calculations are correct
     ScrollTrigger.refresh();
